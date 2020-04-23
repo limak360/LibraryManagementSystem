@@ -7,7 +7,6 @@ import java.util.Date;
 
 public class BookItem
         extends Book {
-
     private String barCode;
     private BookFormat bookFormat;
     private BookStatus bookStatus;
@@ -18,8 +17,7 @@ public class BookItem
     private Date publicationDate;
 
     public static class Builder
-            extends Book.Builder<Builder> {
-
+            extends Book.BaseBuilder<Builder> {
         private String barCode;
         private BookFormat bookFormat;
         private BookStatus bookStatus;
@@ -71,7 +69,7 @@ public class BookItem
 
         @Override
         Book build() {
-            return new BookItem(this);
+            return new BookItem(self());
         }
 
         @Override
@@ -90,5 +88,52 @@ public class BookItem
         this.dueDate = builder.dueDate;
         this.dateOfPurchase = builder.dateOfPurchase;
         this.publicationDate = builder.publicationDate;
+    }
+
+    public String getBarCode() {
+        return barCode;
+    }
+
+    public BookFormat getBookFormat() {
+        return bookFormat;
+    }
+
+    public BookStatus getBookStatus() {
+        return bookStatus;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public Date getBorrowed() {
+        return borrowed;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public Date getDateOfPurchase() {
+        return dateOfPurchase;
+    }
+
+    public Date getPublicationDate() {
+        return publicationDate;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " " +
+                "BookItem{" +
+                "barCode='" + barCode + '\'' +
+                ", bookFormat=" + bookFormat +
+                ", bookStatus=" + bookStatus +
+                ", price=" + price +
+                ", borrowed=" + borrowed +
+                ", dueDate=" + dueDate +
+                ", dateOfPurchase=" + dateOfPurchase +
+                ", publicationDate=" + publicationDate +
+                '}';
     }
 }

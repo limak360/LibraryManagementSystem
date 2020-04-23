@@ -3,15 +3,10 @@ package pl.jackokamil.librarymanagementsystem;
 import pl.jackokamil.librarymanagementsystem.enums.BookFormat;
 import pl.jackokamil.librarymanagementsystem.enums.BookStatus;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
-        List<Author> lista = new ArrayList<Author>(2);
-        lista.add(new Author("Kamil", "moj opis"));
 
         Book book = new BookItem.Builder()
                 .barCode("shh2jb3")
@@ -28,7 +23,30 @@ public class Main {
                 .publisher("Helion")
                 .language("polski")
                 .numberOfPages(30)
-                .authors(lista)
+                .addAuthor(new Author("Kamil", "cos opis"))
+                .addAuthor(new Author("hehe", "nic"))
                 .build();
+
+        System.out.println(book);
+
+        Book book1 = new BookItem.Builder()
+                .barCode("666")
+                .bookFormat(BookFormat.PAPERBACK)
+                .bookStatus(BookStatus.LOANED)
+                .price(122.45)
+                .borrowed(new Date())
+                .dueDate(new Date())
+                .dateOfPurchase(new Date(11))
+                .publicationDate(new Date(8))
+                .ISBN("1234567")
+                .title("Clean Code")
+                .subject("IT")
+                .publisher("Helion")
+                .language("angielski")
+                .numberOfPages(400)
+                .addAuthor(new Author("Robert", "czysty kod"))
+                .build();
+
+        System.out.println(book1);
     }
 }
