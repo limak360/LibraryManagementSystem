@@ -35,7 +35,13 @@ public class Main {
                 .id(1)
                 .password("onie")
                 .status(AccountStatus.ACTIVE)
-                .person(new Person("Kamil","limak@","208383535",new Address("Polska","Warszawa","Mazowieckie","3333","adres")))
+                .person(new Person("Kamil", "limak@", "208383535", new Address.Builder()
+                        .country("Polska")
+                        .city("Wawa")
+                        .state("Mazowieckie")
+                        .zipCode("33")
+                        .streetAddress("ulica")
+                        .build()))
                 .build();
 
         System.out.println(account);

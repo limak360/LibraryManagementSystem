@@ -28,4 +28,15 @@ public class Person {
     public Address getAddress() {
         return address;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " " +
+                "Person{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }
