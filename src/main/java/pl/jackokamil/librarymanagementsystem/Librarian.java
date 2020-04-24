@@ -1,7 +1,5 @@
 package pl.jackokamil.librarymanagementsystem;
 
-import pl.jackokamil.librarymanagementsystem.enums.AccountStatus;
-
 public class Librarian
         extends Account {
 
@@ -30,10 +28,6 @@ public class Librarian
     }
 
     public boolean unBlockMember(Member member) {
-        return false;
-    }
-
-    public boolean resetPassword() {
         return false;
     }
 

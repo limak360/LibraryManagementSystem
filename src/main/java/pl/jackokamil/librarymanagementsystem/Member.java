@@ -50,13 +50,9 @@ public class Member
         return totalBooksCheckedout;
     }
 
-    public boolean resetPassword() {
-        return false;
-    }
-
     @Override
     public String toString() {
-        return  super.toString() + " " +
+        return super.toString() + " " +
                 "Member{" +
                 "dateOfMembership=" + dateOfMembership +
                 ", totalBooksCheckedout=" + totalBooksCheckedout +

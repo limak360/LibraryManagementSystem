@@ -45,11 +45,14 @@ public class Main {
                 .build();
 
         System.out.println(account);
+        System.out.println(account.resetPassword("onie","otak"));
 
         Account account1 = new Librarian.Builder()
                 .id(33)
                 .build();
-
+        //TODO hibernate validator
         System.out.println(account1);
+        System.out.println(account1.resetPassword("brak","nowepass"));
+
     }
 }

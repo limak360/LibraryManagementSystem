@@ -13,7 +13,7 @@ public class Person {
         this.address = address;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 

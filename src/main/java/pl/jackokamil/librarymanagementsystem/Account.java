@@ -1,5 +1,6 @@
 package pl.jackokamil.librarymanagementsystem;
 
+
 import pl.jackokamil.librarymanagementsystem.enums.AccountStatus;
 
 public abstract class Account {
@@ -35,6 +36,7 @@ public abstract class Account {
         }
 
         abstract Account build();
+
         protected abstract T self();
     }
 
@@ -61,7 +63,13 @@ public abstract class Account {
         return person;
     }
 
-    public abstract boolean resetPassword();
+    public boolean resetPassword(String oldPassword, String newPassword) {
+        if (this.password.equals(oldPassword)) {
+            this.password = newPassword;
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
