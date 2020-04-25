@@ -9,7 +9,7 @@ import java.util.Date;
 public class Main {
     public static void main(String[] args) {
 
-        Account librarian = new Librarian.Builder()
+        Librarian librarian = (Librarian) new Librarian.Builder()
                 .id(1)
                 .password("admin")
                 .status(AccountStatus.ACTIVE)
@@ -22,7 +22,7 @@ public class Main {
                         .build()))
                 .build();
 
-        Account member = new Member.Builder()
+        Member member = (Member) new Member.Builder()
                 .dateOfMembership(new Date())
                 .totalBooksCheckedout(0)
                 .id(1)
@@ -55,6 +55,13 @@ public class Main {
                 .addAuthor(new Author("Robert", "czysty kod"))
                 .build();
 
-        //librarian.addBookItem(book1);
+        System.out.println(book1.toString());
+        librarian.addBookItem(book1);
+        librarian.removeBookItem(book1);
+        System.out.println(member.getStatus());
+        librarian.unBlockMember(member);
+        System.out.println(member.getStatus());
+
+
     }
 }

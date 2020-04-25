@@ -1,10 +1,14 @@
 package pl.jackokamil.librarymanagementsystem;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class BarcodeReader {
+    @NotNull
     private String id;
+    @NotNull
     private Date registeredAt;
+    @NotNull
     private boolean active;
 
     public BarcodeReader(String id, Date registeredAt, boolean active) {

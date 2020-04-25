@@ -23,22 +23,22 @@ public abstract class Account {
 
         public BaseBuilder<T> id(int id) {
             this.id = id;
-            return this;
+            return self();
         }
 
         public BaseBuilder<T> password(String password) {
             this.password = password;
-            return this;
+            return self();
         }
 
         public BaseBuilder<T> status(AccountStatus status) {
             this.status = status;
-            return this;
+            return self();
         }
 
         public BaseBuilder<T> person(Person person) {
             this.person = person;
-            return this;
+            return self();
         }
 
         abstract Account build();

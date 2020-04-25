@@ -1,7 +1,11 @@
 package pl.jackokamil.librarymanagementsystem;
 
+import javax.validation.constraints.NotNull;
+
 public class Rack {
+    @NotNull
     private int number;
+    @NotNull
     private String locationIdentifier;
 
     public Rack(int number, String locationIdentifier) {

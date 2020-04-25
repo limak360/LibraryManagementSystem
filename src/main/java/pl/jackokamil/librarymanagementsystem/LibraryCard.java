@@ -1,11 +1,16 @@
 package pl.jackokamil.librarymanagementsystem;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class LibraryCard {
+    @NotNull
     private String cardNumber;
+    @NotNull
     private String barCode;
+    @NotNull
     private Date issuedAt;
+    @NotNull
     private boolean active;
 
     public LibraryCard(String cardNumber, String barCode, Date issuedAt, boolean active) {

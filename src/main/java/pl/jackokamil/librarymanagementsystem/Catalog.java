@@ -1,11 +1,14 @@
 package pl.jackokamil.librarymanagementsystem;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class Catalog implements Search {
+    @NotNull
     private Date creationDate;
+    @NotNull
     private int totalBooks;
     private Map<String, List> bookTitles;
     private Map<String, List> bookAuthors;
@@ -36,7 +39,7 @@ public class Catalog implements Search {
         return bookPublicationDates;
     }
 
-    public boolean updateCatalog(BookItem bookItem) {
+    public boolean updateCatalog(Book bookItem) {
         return true;
     }
 

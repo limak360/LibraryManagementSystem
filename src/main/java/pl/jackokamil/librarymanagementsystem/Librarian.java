@@ -5,7 +5,7 @@ import pl.jackokamil.librarymanagementsystem.enums.AccountStatus;
 public class Librarian
         extends Account {
 
-    private static Catalog catalog;
+    private static Catalog catalog = new Catalog();
 
     public static class Builder extends Account.BaseBuilder<Builder> {
         @Override
@@ -22,8 +22,13 @@ public class Librarian
     public Librarian(Builder builder) {
         super(builder);
     }
+    //TODO lambda ? add/remove/update
+    public boolean addBookItem(Book bookItem) {
+        catalog.updateCatalog(bookItem);
+        return false;
+    }
 
-    public boolean addBookItem(BookItem bookItem) {
+    public boolean removeBookItem(Book bookItem) {
         catalog.updateCatalog(bookItem);
         return false;
     }
