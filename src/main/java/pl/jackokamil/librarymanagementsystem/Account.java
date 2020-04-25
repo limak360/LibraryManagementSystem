@@ -65,6 +65,10 @@ public abstract class Account {
         return status;
     }
 
+    public void setStatus(AccountStatus status) {
+        this.status = status;
+    }
+
     public Person getPerson() {
         return person;
     }
