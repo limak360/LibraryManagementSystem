@@ -1,7 +1,11 @@
 package pl.jackokamil.librarymanagementsystem;
 
+import javax.validation.constraints.NotNull;
+
 public class Library {
+    @NotNull
     private String name;
+    @NotNull
     private Address address;
 
     public Library(String name, Address address) {

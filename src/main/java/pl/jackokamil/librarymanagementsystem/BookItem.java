@@ -3,17 +3,24 @@ package pl.jackokamil.librarymanagementsystem;
 import pl.jackokamil.librarymanagementsystem.enums.BookFormat;
 import pl.jackokamil.librarymanagementsystem.enums.BookStatus;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class BookItem
         extends Book {
+    @NotNull
     private String barCode;
+    @NotNull
     private BookFormat bookFormat;
+    @NotNull
     private BookStatus bookStatus;
+    @NotNull
     private double price;
     private Date borrowed;
     private Date dueDate;
+    @NotNull
     private Date dateOfPurchase;
+    @NotNull
     private Date publicationDate;
 
     public static class Builder

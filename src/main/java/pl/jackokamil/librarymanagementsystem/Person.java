@@ -1,9 +1,15 @@
 package pl.jackokamil.librarymanagementsystem;
 
+import javax.validation.constraints.NotNull;
+
 public class Person {
+    @NotNull
     private String name;
+    @NotNull
     private String email;
+    @NotNull
     private String phone;
+    @NotNull
     private Address address;
 
     public Person(String name, String email, String phone, Address address) {

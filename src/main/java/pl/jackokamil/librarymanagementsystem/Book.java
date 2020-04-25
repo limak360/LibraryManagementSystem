@@ -1,15 +1,23 @@
 package pl.jackokamil.librarymanagementsystem;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Book {
+    @NotNull
     private String ISBN;
+    @NotNull
     private String title;
+    @NotNull
     private String subject;
+    @NotNull
     private String publisher;
+    @NotNull
     private String language;
+    @NotNull
     private int numberOfPages;
+    @NotNull
     private List<Author> authors;
 
     protected abstract static class BaseBuilder<T extends BaseBuilder<T>> {

@@ -3,10 +3,16 @@ package pl.jackokamil.librarymanagementsystem;
 
 import pl.jackokamil.librarymanagementsystem.enums.AccountStatus;
 
+import javax.validation.constraints.NotNull;
+
 public abstract class Account {
+    @NotNull
     private int id;
+    @NotNull
     private String password;
+    @NotNull
     private AccountStatus status;
+    @NotNull
     private Person person;
 
     protected abstract static class BaseBuilder<T extends BaseBuilder<T>> {

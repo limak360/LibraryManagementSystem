@@ -1,10 +1,17 @@
 package pl.jackokamil.librarymanagementsystem;
 
+import javax.validation.constraints.NotNull;
+
 public class Address {
+    @NotNull
     private String country;
+    @NotNull
     private String city;
+    @NotNull
     private String state;
+    @NotNull
     private String zipCode;
+    @NotNull
     private String streetAddress;
 
     public static class Builder {

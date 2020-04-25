@@ -1,6 +1,5 @@
 package pl.jackokamil.librarymanagementsystem;
 
-import pl.jackokamil.librarymanagementsystem.enums.AccountStatus;
 import pl.jackokamil.librarymanagementsystem.enums.BookFormat;
 import pl.jackokamil.librarymanagementsystem.enums.BookStatus;
 
@@ -28,31 +27,5 @@ public class Main {
                 .build();
 
         System.out.println(book1);
-
-        Account account = new Member.Builder()
-                .totalBooksCheckedout(111)
-                .dateOfMembership(new Date())
-                .id(1)
-                .password("onie")
-                .status(AccountStatus.ACTIVE)
-                .person(new Person("Kamil", "limak@", "208383535", new Address.Builder()
-                        .country("Polska")
-                        .city("Wawa")
-                        .state("Mazowieckie")
-                        .zipCode("33")
-                        .streetAddress("ulica")
-                        .build()))
-                .build();
-
-        System.out.println(account);
-        System.out.println(account.resetPassword("onie","otak"));
-
-        Account account1 = new Librarian.Builder()
-                .id(33)
-                .build();
-        //TODO hibernate validator
-        System.out.println(account1);
-        System.out.println(account1.resetPassword("brak","nowepass"));
-
     }
 }

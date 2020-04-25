@@ -1,13 +1,13 @@
 package pl.jackokamil.librarymanagementsystem;
 
-import pl.jackokamil.librarymanagementsystem.enums.AccountStatus;
-
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Member
         extends Account {
-
+    @NotNull
     private Date dateOfMembership;
+    @NotNull
     private int totalBooksCheckedout;
 
     public static class Builder extends Account.BaseBuilder<Builder> {

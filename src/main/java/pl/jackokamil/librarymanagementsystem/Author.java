@@ -1,7 +1,11 @@
 package pl.jackokamil.librarymanagementsystem;
 
+import javax.validation.constraints.NotNull;
+
 public class Author {
+    @NotNull
     private String name;
+    @NotNull
     private String description;
 
     public Author(String name, String description) {
