@@ -75,7 +75,7 @@ public class BookItem
         }
 
         @Override
-        Book build() {
+        BookItem build() {
             return new BookItem(self());
         }
 

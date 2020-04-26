@@ -15,28 +15,28 @@ public abstract class Account {
     @NotNull
     private Person person;
 
-    protected abstract static class BaseBuilder<T extends BaseBuilder<T>> {
+    abstract static class BaseBuilder<T extends BaseBuilder<T>> {
         private int id;
         private String password;
         private AccountStatus status;
         private Person person;
 
-        public BaseBuilder<T> id(int id) {
+        public T id(int id) {
             this.id = id;
             return self();
         }
 
-        public BaseBuilder<T> password(String password) {
+        public T password(String password) {
             this.password = password;
             return self();
         }
 
-        public BaseBuilder<T> status(AccountStatus status) {
+        public T status(AccountStatus status) {
             this.status = status;
             return self();
         }
 
-        public BaseBuilder<T> person(Person person) {
+        public T person(Person person) {
             this.person = person;
             return self();
         }

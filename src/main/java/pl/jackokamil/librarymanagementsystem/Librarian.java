@@ -9,8 +9,8 @@ public class Librarian
 
     public static class Builder extends Account.BaseBuilder<Builder> {
         @Override
-        Account build() {
-            return new Librarian(self());
+        public Librarian build() {
+            return new Librarian(this);
         }
 
         @Override
@@ -19,16 +19,17 @@ public class Librarian
         }
     }
 
-    public Librarian(Builder builder) {
+    private Librarian(Builder builder) {
         super(builder);
     }
+
     //TODO lambda ? add/remove/update
     public boolean addBookItem(Book bookItem) {
         catalog.updateCatalog(bookItem);
         return false;
     }
 
-    public boolean removeBookItem(Book bookItem) {
+    public boolean removeBookItem(BookItem bookItem) {
         catalog.updateCatalog(bookItem);
         return false;
     }

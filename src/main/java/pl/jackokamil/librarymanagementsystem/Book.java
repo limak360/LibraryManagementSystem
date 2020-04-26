@@ -29,37 +29,37 @@ public abstract class Book {
         private int numberOfPages;
         private List<Author> authors = new ArrayList<>();
 
-        public BaseBuilder<T> ISBN(String ISBN) {
+        public T ISBN(String ISBN) {
             this.ISBN = ISBN;
             return self();
         }
 
-        public BaseBuilder<T> title(String title) {
+        public T title(String title) {
             this.title = title;
             return self();
         }
 
-        public BaseBuilder<T> subject(String subject) {
+        public T subject(String subject) {
             this.subject = subject;
             return self();
         }
 
-        public BaseBuilder<T> publisher(String publisher) {
+        public T publisher(String publisher) {
             this.publisher = publisher;
             return self();
         }
 
-        public BaseBuilder<T> language(String language) {
+        public T language(String language) {
             this.language = language;
             return self();
         }
 
-        public BaseBuilder<T> numberOfPages(int numberOfPages) {
+        public T numberOfPages(int numberOfPages) {
             this.numberOfPages = numberOfPages;
             return self();
         }
 
-        public BaseBuilder<T> addAuthor(Author author) {
+        public T addAuthor(Author author) {
             this.authors.add(author);
             return self();
         }
