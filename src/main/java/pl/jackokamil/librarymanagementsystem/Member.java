@@ -55,6 +55,7 @@ public class Member
     }
 
     private void incrementTotalBooksCheckedout() {
+        totalBooksCheckedout++;
     }
 
     public boolean checkoutBookItem(BookItem bookItem) {
