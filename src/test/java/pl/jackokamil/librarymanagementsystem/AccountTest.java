@@ -6,17 +6,28 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
 
-    private Account memberStub = new Member.Builder()
+    private Account member = new Member.Builder()
             .password("123123")
             .build();
 
+    private Account member2 = new Member.Builder()
+            .build();
+
+
+
+
     @Test
     void ShouldResetPassword() {
-        assertTrue(memberStub.resetPassword("123123", "noweHaslo"));
+        assertTrue(member.resetPassword("123123", "noweHaslo"));
     }
 
     @Test
     void ShouldNotResetPassword() {
-        assertFalse(memberStub.resetPassword("123", "noweHaslo"));
+        assertFalse(member.resetPassword("123", "noweHaslo"));
+    }
+
+    @Test
+    void ShouldThrowNullPointerException() {
+        assertThrows(NullPointerException.class, () -> member2.resetPassword("123", "222"));
     }
 }

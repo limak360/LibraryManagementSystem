@@ -61,5 +61,10 @@ public class Main {
         System.out.println(member.getStatus());
         librarian.blockMember(member);
         System.out.println(member.getStatus());
+
+
+
+
+
     }
 }

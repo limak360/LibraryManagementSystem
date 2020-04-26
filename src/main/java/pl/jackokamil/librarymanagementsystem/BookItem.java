@@ -3,9 +3,11 @@ package pl.jackokamil.librarymanagementsystem;
 import pl.jackokamil.librarymanagementsystem.enums.BookFormat;
 import pl.jackokamil.librarymanagementsystem.enums.BookStatus;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Entity
 public class BookItem
         extends Book {
     @NotNull

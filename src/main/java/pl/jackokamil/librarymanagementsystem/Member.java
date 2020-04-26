@@ -9,6 +9,7 @@ public class Member
     private Date dateOfMembership;
     @NotNull
     private int totalBooksCheckedout;
+    private Catalog catalog = new Catalog();
 
     public static class Builder extends Account.BaseBuilder<Builder> {
 
@@ -59,6 +60,7 @@ public class Member
     }
 
     public boolean checkoutBookItem(BookItem bookItem) {
+        incrementTotalBooksCheckedout();
         return true;
     }
 

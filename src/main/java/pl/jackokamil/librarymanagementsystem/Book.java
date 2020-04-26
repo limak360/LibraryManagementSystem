@@ -1,9 +1,11 @@
 package pl.jackokamil.librarymanagementsystem;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public abstract class Book {
     @NotNull
     private String ISBN;
