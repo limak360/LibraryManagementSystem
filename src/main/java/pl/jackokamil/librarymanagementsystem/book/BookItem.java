@@ -1,9 +1,10 @@
 package pl.jackokamil.librarymanagementsystem.book;
 
+import java.io.Serializable;
 import java.util.Date;
 
 public class BookItem
-        extends Book {
+        extends Book implements Serializable {
 
     private String barCode;
     private BookFormat bookFormat;
@@ -66,7 +67,7 @@ public class BookItem
         }
 
         @Override
-        BookItem build() {
+        public BookItem build() {
             return new BookItem(self());
         }
 

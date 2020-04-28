@@ -1,7 +1,9 @@
 package pl.jackokamil.librarymanagementsystem.book;
 
 
-public class Author {
+import java.io.Serializable;
+
+public class Author implements Serializable {
 
     private String name;
     private String description;

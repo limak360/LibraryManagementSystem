@@ -1,11 +1,12 @@
 package pl.jackokamil.librarymanagementsystem.book;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class Book {
+public abstract class Book implements Serializable {
 
     private String ISBN;
     private String title;

@@ -11,7 +11,6 @@ public class Member
 
     private Date dateOfMembership;
     private int totalBooksCheckedout;
-    private Catalog catalog = new Catalog();
 
     public static class Builder extends Account.BaseBuilder<Builder> {
 
@@ -29,7 +28,7 @@ public class Member
         }
 
         @Override
-        Member build() {
+        public Member build() {
             return new Member(this);
         }
 

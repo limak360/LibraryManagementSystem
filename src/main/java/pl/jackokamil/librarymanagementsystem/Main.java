@@ -2,10 +2,8 @@ package pl.jackokamil.librarymanagementsystem;
 
 
 import pl.jackokamil.librarymanagementsystem.account.*;
-import pl.jackokamil.librarymanagementsystem.book.Author;
-import pl.jackokamil.librarymanagementsystem.book.BookFormat;
-import pl.jackokamil.librarymanagementsystem.book.BookItem;
-import pl.jackokamil.librarymanagementsystem.book.BookStatus;
+import pl.jackokamil.librarymanagementsystem.book.*;
+import pl.jackokamil.librarymanagementsystem.library.Library;
 
 import java.util.Date;
 
@@ -39,6 +37,18 @@ public class Main {
                         .build()))
                 .build();
 
+        Library library = new Library("Biblioteka Glowna w Katowicach", new Address
+                .Builder()
+                .country("Poland")
+                .city("Katowice")
+                .state("Slask")
+                .zipCode("156-111")
+                .streetAddress("Katowicka")
+                .build());
+
+        library.addLibrarian(librarian);
+        library.addMember(member);
+
         BookItem book1 = new BookItem.Builder()
                 .barCode("666")
                 .bookFormat(BookFormat.PAPERBACK)
@@ -57,11 +67,19 @@ public class Main {
                 .addAuthor(new Author("Robert", "czysty kod"))
                 .build();
 
-        System.out.println(book1.toString());
-        librarian.addBookItem(book1);
-        librarian.removeBookItem(book1);
-        System.out.println(member.getStatus());
-        librarian.blockMember(member);
-        System.out.println(member.getStatus());
+        System.out.println(library.getMember().get(0).getStatus());
+        library.getLibrarian().get(0).blockMember(library.getMember().get(0));
+        System.out.println(library.getMember().get(0).getStatus());
+
+        //add book item
+        library.getLibrarian().get(0).addBookItem(book1);
+
+
+//        librarian.addBookItem(book1);
+//        librarian.removeBookItem(book1);
+//        System.out.println(member.getStatus());
+//        librarian.blockMember(member);
+//        System.out.println(member.getStatus());
+//        library.printAccounts();
     }
 }

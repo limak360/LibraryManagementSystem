@@ -1,12 +1,11 @@
 package pl.jackokamil.librarymanagementsystem.account;
 
 import pl.jackokamil.librarymanagementsystem.book.BookItem;
-import pl.jackokamil.librarymanagementsystem.library.Catalog;
+
+import static pl.jackokamil.librarymanagementsystem.library.Catalog.CATALOG;
 
 public class Librarian
         extends Account {
-
-    private Catalog catalog = new Catalog();
 
     public static class Builder extends Account.BaseBuilder<Builder> {
         @Override
@@ -26,12 +25,12 @@ public class Librarian
 
     //TODO lambda ? add/remove/update
     public boolean addBookItem(BookItem bookItem) {
-        catalog.updateCatalog(bookItem);
+        CATALOG.updateCatalog(bookItem);
         return false;
     }
 
     public boolean removeBookItem(BookItem bookItem) {
-      //  catalog.updateCatalog(bookItem);
+        //  catalog.updateCatalog(bookItem);
         return false;
     }
 
