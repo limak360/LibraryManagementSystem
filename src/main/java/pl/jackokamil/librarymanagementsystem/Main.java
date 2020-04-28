@@ -1,14 +1,16 @@
 package pl.jackokamil.librarymanagementsystem;
 
-import pl.jackokamil.librarymanagementsystem.enums.AccountStatus;
-import pl.jackokamil.librarymanagementsystem.enums.BookFormat;
-import pl.jackokamil.librarymanagementsystem.enums.BookStatus;
+
+import pl.jackokamil.librarymanagementsystem.account.*;
+import pl.jackokamil.librarymanagementsystem.book.Author;
+import pl.jackokamil.librarymanagementsystem.book.BookFormat;
+import pl.jackokamil.librarymanagementsystem.book.BookItem;
+import pl.jackokamil.librarymanagementsystem.book.BookStatus;
 
 import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
-
         Librarian librarian = new Librarian.Builder()
                 .id(1)
                 .password("admin")
@@ -61,10 +63,5 @@ public class Main {
         System.out.println(member.getStatus());
         librarian.blockMember(member);
         System.out.println(member.getStatus());
-
-
-
-
-
     }
 }

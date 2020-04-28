@@ -1,6 +1,8 @@
 package pl.jackokamil.librarymanagementsystem;
 
 import org.junit.jupiter.api.Test;
+import pl.jackokamil.librarymanagementsystem.account.Account;
+import pl.jackokamil.librarymanagementsystem.account.Member;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,8 +14,6 @@ class AccountTest {
 
     private Account member2 = new Member.Builder()
             .build();
-
-
 
 
     @Test
