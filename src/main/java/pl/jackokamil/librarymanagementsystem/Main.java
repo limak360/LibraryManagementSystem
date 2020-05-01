@@ -5,10 +5,14 @@ import pl.jackokamil.librarymanagementsystem.account.*;
 import pl.jackokamil.librarymanagementsystem.book.*;
 import pl.jackokamil.librarymanagementsystem.library.Library;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
+
         Librarian librarian = new Librarian.Builder()
                 .id(1)
                 .password("admin")
@@ -49,6 +53,7 @@ public class Main {
         library.addLibrarian(librarian);
         library.addMember(member);
 
+
         BookItem book1 = new BookItem.Builder()
                 .barCode("666")
                 .bookFormat(BookFormat.PAPERBACK)
@@ -66,6 +71,7 @@ public class Main {
                 .numberOfPages(400)
                 .addAuthor(new Author("Robert", "czysty kod"))
                 .build();
+
 
         System.out.println(library.getMember().get(0).getStatus());
         library.getLibrarian().get(0).blockMember(library.getMember().get(0));

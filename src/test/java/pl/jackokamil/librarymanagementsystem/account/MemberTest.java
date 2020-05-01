@@ -1,7 +1,6 @@
-package pl.jackokamil.librarymanagementsystem;
+package pl.jackokamil.librarymanagementsystem.account;
 
 import org.junit.jupiter.api.Test;
-import pl.jackokamil.librarymanagementsystem.account.Member;
 import pl.jackokamil.librarymanagementsystem.book.BookItem;
 
 import java.util.Date;

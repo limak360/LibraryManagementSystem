@@ -2,6 +2,8 @@ package pl.jackokamil.librarymanagementsystem.account;
 
 import pl.jackokamil.librarymanagementsystem.book.BookItem;
 
+import java.util.List;
+
 import static pl.jackokamil.librarymanagementsystem.library.Catalog.CATALOG;
 
 public class Librarian
@@ -30,7 +32,7 @@ public class Librarian
     }
 
     public boolean removeBookItem(BookItem bookItem) {
-        //  catalog.updateCatalog(bookItem);
+         //catalog.updateCatalog(bookItem);
         return false;
     }
 

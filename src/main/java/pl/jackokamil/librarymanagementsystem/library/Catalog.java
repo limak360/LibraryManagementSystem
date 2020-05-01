@@ -7,34 +7,84 @@ import pl.jackokamil.librarymanagementsystem.book.BookItem;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Catalog implements Search {
 
+    public static final Catalog CATALOG = new Catalog();
+
     private LocalDateTime creationDate;
     private static int totalBooks;
-    private Map<String,List<BookItem>> book;
+    private static int bookItemListCounter;
+
+    private List<BookItem> bookItems;
+    private List<List<BookItem>> bookItemList;
+    private Map<String, List<BookItem>> books;
+
     private Map<String, List> bookTitles;
     private Map<String, List> bookAuthors;
     private Map<String, List> bookSubject;
     private Map<Date, List> bookPublicationDates;
 
-    public static final Catalog CATALOG = new Catalog();
-
     private Catalog() {
+        if (CATALOG != null) {
+            throw new IllegalStateException("Catalog already constructed");
+        }
         this.creationDate = LocalDateTime.now();
         this.totalBooks = 0;
-        this.book = new HashMap<>();
+        this.bookItemListCounter = 0;
+        this.bookItems = new ArrayList<>();
+        this.bookItemList = new ArrayList<>();
+        this.books = new HashMap<>();
         this.bookTitles = new HashMap<>();
         this.bookAuthors = new HashMap<>();
         this.bookSubject = new HashMap<>();
         this.bookPublicationDates = new HashMap<>();
-        if (CATALOG != null) {
-            throw new IllegalStateException("Catalog already constructed");
+    }
+
+    //TODO
+    public Map<String, List<BookItem>> updateCatalog(BookItem bookItem) {
+        if (!books.containsKey(bookItem.getISBN())) {
+            bookItems = new ArrayList<>();
+            bookItems.add(bookItem);
+            bookItemList.add(bookItems);
+            books.put(bookItem.getISBN(), bookItemList.get(bookItemListCounter));
+            bookItemListCounter++;
+        } else {
+            for (List<BookItem> list : bookItemList) {
+                if (list.get(0).getISBN().equals(bookItem.getISBN())) {
+                    list.add(bookItem);
+                }
+            }
         }
+        for (String name : books.keySet()) {
+            System.out.println(name);
+            for (int i = 0; i < 5; i++) {
+                System.out.println(books.get(bookItem.getISBN()).get(i));
+            }
+        }
+        return books;
+    }
+
+
+    @Override
+    public List<Book> searchByTitle(String title) {
+        return null;
+    }
+
+    @Override
+    public List<Book> searchByAuthor(String author) {
+        return null;
+    }
+
+    @Override
+    public List<Book> searchBySubject(String subject) {
+        return null;
+    }
+
+    @Override
+    public List<Book> searchByPubDate(Date publishDate) {
+        return null;
     }
 
     public String getCreationDate() {
@@ -61,32 +111,6 @@ public class Catalog implements Search {
 
     public Map<Date, List> getBookPublicationDates() {
         return bookPublicationDates;
-    }
-
-    public boolean updateCatalog(List<BookItem> bookItem) {
-//            book.put(bookItem.get(0).getISBN(), bookItem);
-            totalBooks++;
-            return true;
-    }
-
-    @Override
-    public List<Book> searchByTitle(String title) {
-        return null;
-    }
-
-    @Override
-    public List<Book> searchByAuthor(String author) {
-        return null;
-    }
-
-    @Override
-    public List<Book> searchBySubject(String subject) {
-        return null;
-    }
-
-    @Override
-    public List<Book> searchByPubDate(Date publishDate) {
-        return null;
     }
 
     @Override

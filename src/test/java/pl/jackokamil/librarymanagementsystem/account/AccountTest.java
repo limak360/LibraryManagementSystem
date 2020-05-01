@@ -1,8 +1,6 @@
-package pl.jackokamil.librarymanagementsystem;
+package pl.jackokamil.librarymanagementsystem.account;
 
 import org.junit.jupiter.api.Test;
-import pl.jackokamil.librarymanagementsystem.account.Account;
-import pl.jackokamil.librarymanagementsystem.account.Member;
 
 import static org.junit.jupiter.api.Assertions.*;
 

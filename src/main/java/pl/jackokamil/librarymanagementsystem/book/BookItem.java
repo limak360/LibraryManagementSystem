@@ -1,10 +1,10 @@
 package pl.jackokamil.librarymanagementsystem.book;
 
-import java.io.Serializable;
+
 import java.util.Date;
 
 public class BookItem
-        extends Book implements Serializable {
+        extends Book {
 
     private String barCode;
     private BookFormat bookFormat;
