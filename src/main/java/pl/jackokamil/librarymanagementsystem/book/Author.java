@@ -20,4 +20,12 @@ public class Author implements Serializable {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

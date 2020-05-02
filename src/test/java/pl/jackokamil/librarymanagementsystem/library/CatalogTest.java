@@ -2,37 +2,135 @@ package pl.jackokamil.librarymanagementsystem.library;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.jackokamil.librarymanagementsystem.book.Author;
+import pl.jackokamil.librarymanagementsystem.book.BookFormat;
 import pl.jackokamil.librarymanagementsystem.book.BookItem;
+import pl.jackokamil.librarymanagementsystem.book.BookStatus;
 
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CatalogTest {
 
-    BookItem bookItem;
-    BookItem bookItem2;
-    BookItem bookItem3;
-    BookItem bookItem4;
-    BookItem bookItem5;
-    BookItem bookItem6;
+    BookItem book1;
+    BookItem book2;
+    BookItem book3;
+    BookItem book4;
+    BookItem book5;
+
+    List<BookItem> lista;
 
     @BeforeEach
     void SetUp() {
-        bookItem = new BookItem.Builder().ISBN("12344444").title("pp").build();
-        bookItem2 = new BookItem.Builder().ISBN("14").title("nic").build();
-        bookItem3 = new BookItem.Builder().ISBN("1234").build();
-        bookItem4 = new BookItem.Builder().ISBN("14").title("ksiazka").build();
-        bookItem5 = new BookItem.Builder().ISBN("12").build();
-        bookItem6 = new BookItem.Builder().ISBN("1234").build();
+        book1 = new BookItem.Builder()
+                .barCode("388")
+                .bookFormat(BookFormat.PAPERBACK)
+                .bookStatus(BookStatus.AVAILABLE)
+                .price(47.99)
+                .borrowed(new Date())
+                .dueDate(new Date())
+                .dateOfPurchase(new Date(11))
+                .publicationDate(new Date(8))
+                .ISBN("1234567")
+                .title("Thinking in Java")
+                .subject("IT")
+                .publisher("Helion")
+                .language("angielski")
+                .numberOfPages(400)
+                .addAuthor(new Author("Bruce", ""))
+                .build();
+        book2 = new BookItem.Builder()
+                .barCode("454")
+                .bookFormat(BookFormat.PAPERBACK)
+                .bookStatus(BookStatus.AVAILABLE)
+                .price(47.99)
+                .borrowed(new Date())
+                .dueDate(new Date())
+                .dateOfPurchase(new Date(11))
+                .publicationDate(new Date(8))
+                .ISBN("566")
+                .title("Clean Code")
+                .subject("IT")
+                .publisher("Helion")
+                .language("angielski")
+                .numberOfPages(400)
+                .addAuthor(new Author("Robert", "czysty kod"))
+                .build();
+        book3 = new BookItem.Builder()
+                .barCode("8900")
+                .bookFormat(BookFormat.PAPERBACK)
+                .bookStatus(BookStatus.AVAILABLE)
+                .price(47.99)
+                .borrowed(new Date())
+                .dueDate(new Date())
+                .dateOfPurchase(new Date(11))
+                .publicationDate(new Date(8))
+                .ISBN("566")
+                .title("Clean Code")
+                .subject("IT")
+                .publisher("Helion")
+                .language("angielski")
+                .numberOfPages(400)
+                .addAuthor(new Author("Robert", "czysty kod"))
+                .build();
+        book4 = new BookItem.Builder()
+                .barCode("766")
+                .bookFormat(BookFormat.PAPERBACK)
+                .bookStatus(BookStatus.AVAILABLE)
+                .price(47.99)
+                .borrowed(new Date())
+                .dueDate(new Date())
+                .dateOfPurchase(new Date(11))
+                .publicationDate(new Date(8))
+                .ISBN("322")
+                .title("Design Patterns")
+                .subject("IT")
+                .publisher("Helion")
+                .language("angielski")
+                .numberOfPages(400)
+                .addAuthor(new Author("GOF", "opis"))
+                .build();
+        book5 = new BookItem.Builder()
+                .barCode("1982")
+                .bookFormat(BookFormat.PAPERBACK)
+                .bookStatus(BookStatus.AVAILABLE)
+                .price(47.99)
+                .borrowed(new Date())
+                .dueDate(new Date())
+                .dateOfPurchase(new Date(11))
+                .publicationDate(new Date(8))
+                .ISBN("12345678")
+                .title("Thinking in Java")
+                .subject("IT")
+                .publisher("Helion")
+                .language("angielski")
+                .numberOfPages(400)
+                .addAuthor(new Author("Bruce", "ooo"))
+                .build();
+    }
+
+    @Test
+    void ShouldNotPutNewBookItemInAMap() {
+        assertEquals(1, Catalog.CATALOG.updateCatalog(book2).size());
+        assertEquals(1, Catalog.CATALOG.updateCatalog(book3).size());
+    }
+
+    @Test
+    void ShouldPutNewBookItemInstanceIntoAMap() {
+        assertEquals(2, Catalog.CATALOG.updateCatalog(book1).size());
+        assertEquals(3, Catalog.CATALOG.updateCatalog(book4).size());
     }
 
 
     @Test
-    void ShouldPutNewBookItemInstanceIntoAMap() {
-        assertEquals(1,Catalog.CATALOG.updateCatalog(bookItem).size());
-        assertEquals(2,Catalog.CATALOG.updateCatalog(bookItem2).size());
-        assertEquals(2,Catalog.CATALOG.updateCatalog(bookItem4).size());
-        assertEquals(3,Catalog.CATALOG.updateCatalog(bookItem6).size());
+    void ShouldFindBookOfProvidedTitle() {
+        lista = new ArrayList<>();
+        lista.add(book2);
+        lista.add(book3);
+        assertEquals(lista, Catalog.CATALOG.searchByTitle("Clean Code"));
     }
-
 }

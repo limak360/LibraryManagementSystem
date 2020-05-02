@@ -31,11 +31,6 @@ public class Librarian
         return false;
     }
 
-    public boolean removeBookItem(BookItem bookItem) {
-         //catalog.updateCatalog(bookItem);
-        return false;
-    }
-
     public boolean blockMember(Member member) {
         if (member.getStatus() != AccountStatus.BLACKLISTED) {
             member.setStatus(AccountStatus.BLACKLISTED);

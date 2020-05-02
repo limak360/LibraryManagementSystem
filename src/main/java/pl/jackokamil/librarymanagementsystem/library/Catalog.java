@@ -1,37 +1,35 @@
 package pl.jackokamil.librarymanagementsystem.library;
 
 
-import pl.jackokamil.librarymanagementsystem.book.Book;
 import pl.jackokamil.librarymanagementsystem.book.BookItem;
-
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Catalog implements Search {
-
     public static final Catalog CATALOG = new Catalog();
 
-    private LocalDateTime creationDate;
     private static int totalBooks;
     private static int bookItemListCounter;
 
-    private List<List<BookItem>> bookItemList;
-    private Map<String, List<BookItem>> books;
+    private final LocalDateTime creationDate;
 
-    private Map<String, List> bookTitles;
-    private Map<String, List> bookAuthors;
-    private Map<String, List> bookSubject;
-    private Map<Date, List> bookPublicationDates;
+    private final List<List<BookItem>> bookItemList;
+    private final Map<String, List<BookItem>> books;
+
+    private final Map<String, List> bookTitles;
+    private final Map<String, List> bookAuthors;
+    private final Map<String, List> bookSubject;
+    private final Map<Date, List> bookPublicationDates;
 
     private Catalog() {
         if (CATALOG != null) {
             throw new IllegalStateException("Catalog already constructed");
         }
+        totalBooks = 0;
+        bookItemListCounter = 0;
         this.creationDate = LocalDateTime.now();
-        this.totalBooks = 0;
-        this.bookItemListCounter = 0;
         this.bookItemList = new ArrayList<>();
         this.books = new HashMap<>();
         this.bookTitles = new HashMap<>();
@@ -40,12 +38,10 @@ public class Catalog implements Search {
         this.bookPublicationDates = new HashMap<>();
     }
 
-    //TODO clean code testowanie ale juz dziala
+    //TODO clean code, testowanie
     public Map<String, List<BookItem>> updateCatalog(BookItem bookItem) {
         if (!books.containsKey(bookItem.getISBN())) {
-            List<BookItem> tempList = new ArrayList<>();
-            tempList.add(bookItem);
-            bookItemList.add(tempList);
+            bookItemList.add(addBookItem(bookItem));
             books.put(bookItem.getISBN(), bookItemList.get(bookItemListCounter));
             bookItemListCounter++;
         } else {
@@ -55,41 +51,86 @@ public class Catalog implements Search {
                 }
             }
         }
-        //TODO do poprawy
-//        for (String name : books.keySet()) {
-//            System.out.println(name);
-//            for (int i = 0; i < bookItemListCounter-1; i++) {
-//                System.out.println(books.get(bookItem.getISBN()).get(i));
-//            }
-//        }
         return books;
     }
 
+    //splitted
+    private List<BookItem> addBookItem(BookItem bookItem) {
+        List<BookItem> tempList = new ArrayList<>();
+        tempList.add(bookItem);
+        return tempList;
+    }
 
+    public void printMap() {
+        for (String name : books.keySet()) {
+            System.out.println("Key: " + name);
+            System.out.print("Values: ");
+            books.get(name).forEach(System.out::println);
+        }
+    }
+
+
+    //strategy?
     @Override
-    public List<Book> searchByTitle(String title) {
-        return null;
+    public List<BookItem> searchByTitle(String title) {
+        for (List<BookItem> list : bookItemList) {
+            int i = 0;
+            while (i < list.size()) {
+                if (list.get(i).getTitle().equals(title)) {
+                    list.forEach(bookItem -> bookItem.getTitle());
+                    return list;
+                }
+                i++;
+            }
+        }
+        return null; //throw custom exception?
     }
 
     @Override
-    public List<Book> searchByAuthor(String author) {
-        return null;
+    public List<BookItem> searchByAuthor(String author) {
+        for (List<BookItem> list : bookItemList) {
+            int i = 0;
+            while (i < list.size()) {//!!
+                if (list.get(i).getAuthors().equals(author)) {
+                    return list;
+                }
+                i++;
+            }
+        }
+        return null; //throw custom exception?
     }
 
     @Override
-    public List<Book> searchBySubject(String subject) {
-        return null;
+    public List<BookItem> searchBySubject(String subject) {
+        for (List<BookItem> list : bookItemList) {
+            int i = 0;
+            while (i < list.size()) {
+                if (list.get(i).getSubject().equals(subject)) {
+                    return list;
+                }
+                i++;
+            }
+        }
+        return null; //throw custom exception?
     }
 
     @Override
-    public List<Book> searchByPubDate(Date publishDate) {
-        return null;
+    public List<BookItem> searchByPubDate(Date publishDate) {
+        for (List<BookItem> list : bookItemList) {
+            int i = 0;
+            while (i < list.size()) {
+                if (list.get(i).getPublicationDate().equals(publishDate)) {
+                    return list;
+                }
+                i++;
+            }
+        }
+        return null; //throw custom exception?
     }
 
     public String getCreationDate() {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        String formattedDate = creationDate.format(myFormatObj);
-        return formattedDate;
+        return creationDate.format(myFormatObj);
     }
 
     public int getTotalBooks() {

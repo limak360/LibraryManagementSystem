@@ -79,13 +79,5 @@ public class Main {
 
         //add book item
         library.getLibrarian().get(0).addBookItem(book1);
-
-
-//        librarian.addBookItem(book1);
-//        librarian.removeBookItem(book1);
-//        System.out.println(member.getStatus());
-//        librarian.blockMember(member);
-//        System.out.println(member.getStatus());
-//        library.printAccounts();
     }
 }
