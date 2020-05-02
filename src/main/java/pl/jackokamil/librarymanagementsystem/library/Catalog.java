@@ -17,7 +17,6 @@ public class Catalog implements Search {
     private static int totalBooks;
     private static int bookItemListCounter;
 
-    private List<BookItem> bookItems;
     private List<List<BookItem>> bookItemList;
     private Map<String, List<BookItem>> books;
 
@@ -33,7 +32,6 @@ public class Catalog implements Search {
         this.creationDate = LocalDateTime.now();
         this.totalBooks = 0;
         this.bookItemListCounter = 0;
-        this.bookItems = new ArrayList<>();
         this.bookItemList = new ArrayList<>();
         this.books = new HashMap<>();
         this.bookTitles = new HashMap<>();
@@ -42,12 +40,12 @@ public class Catalog implements Search {
         this.bookPublicationDates = new HashMap<>();
     }
 
-    //TODO
+    //TODO clean code testowanie ale juz dziala
     public Map<String, List<BookItem>> updateCatalog(BookItem bookItem) {
         if (!books.containsKey(bookItem.getISBN())) {
-            bookItems = new ArrayList<>();
-            bookItems.add(bookItem);
-            bookItemList.add(bookItems);
+            List<BookItem> tempList = new ArrayList<>();
+            tempList.add(bookItem);
+            bookItemList.add(tempList);
             books.put(bookItem.getISBN(), bookItemList.get(bookItemListCounter));
             bookItemListCounter++;
         } else {
@@ -57,12 +55,13 @@ public class Catalog implements Search {
                 }
             }
         }
-        for (String name : books.keySet()) {
-            System.out.println(name);
-            for (int i = 0; i < 5; i++) {
-                System.out.println(books.get(bookItem.getISBN()).get(i));
-            }
-        }
+        //TODO do poprawy
+//        for (String name : books.keySet()) {
+//            System.out.println(name);
+//            for (int i = 0; i < bookItemListCounter-1; i++) {
+//                System.out.println(books.get(bookItem.getISBN()).get(i));
+//            }
+//        }
         return books;
     }
 
