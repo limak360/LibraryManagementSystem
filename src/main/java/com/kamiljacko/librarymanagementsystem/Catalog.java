@@ -87,44 +87,17 @@ public class Catalog implements Search {
 
     @Override
     public List<BookItem> searchByAuthor(String author) {
-        for (List<BookItem> list : bookItemList) {
-            int i = 0;
-            while (i < list.size()) {//!!
-                if (list.get(i).getAuthors().equals(author)) {
-                    return list;
-                }
-                i++;
-            }
-        }
-        return null; //throw custom exception?
+        return null;
     }
 
     @Override
     public List<BookItem> searchBySubject(String subject) {
-        for (List<BookItem> list : bookItemList) {
-            int i = 0;
-            while (i < list.size()) {
-                if (list.get(i).getSubject().equals(subject)) {
-                    return list;
-                }
-                i++;
-            }
-        }
-        return null; //throw custom exception?
+        return null;
     }
 
     @Override
     public List<BookItem> searchByPubDate(Date publishDate) {
-        for (List<BookItem> list : bookItemList) {
-            int i = 0;
-            while (i < list.size()) {
-                if (list.get(i).getPublicationDate().equals(publishDate)) {
-                    return list;
-                }
-                i++;
-            }
-        }
-       throw new IllegalArgumentException(); //throw custom exception?
+        return null;
     }
 
     public String getCreationDate() {
