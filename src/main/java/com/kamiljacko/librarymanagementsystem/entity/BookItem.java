@@ -1,9 +1,6 @@
 package com.kamiljacko.librarymanagementsystem.entity;
 
 
-import com.kamiljacko.librarymanagementsystem.BookFormat;
-import com.kamiljacko.librarymanagementsystem.BookStatus;
-
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
@@ -85,5 +82,19 @@ public class BookItem
 
     public void setPublicationDate(Date publicationDate) {
         this.publicationDate = publicationDate;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", " + "BookItem{" +
+                "barCode='" + barCode + '\'' +
+                ", bookFormat=" + bookFormat +
+                ", bookStatus=" + bookStatus +
+                ", price=" + price +
+                ", borrowed=" + borrowed +
+                ", dueDate=" + dueDate +
+                ", dateOfPurchase=" + dateOfPurchase +
+                ", publicationDate=" + publicationDate +
+                '}';
     }
 }

@@ -2,12 +2,13 @@ package com.kamiljacko.librarymanagementsystem.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Address {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int Id;
     private String country;
     private String city;
@@ -64,5 +65,17 @@ public class Address {
 
     public void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "Id=" + Id +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", streetAddress='" + streetAddress + '\'' +
+                '}';
     }
 }

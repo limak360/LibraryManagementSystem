@@ -1,4 +1,4 @@
-package com.kamiljacko.librarymanagementsystem;
+package com.kamiljacko.librarymanagementsystem.entity;
 
 public class Constants {
     public static final int MAX_BOOKS_ISSUED_TO_A_USER = 5;

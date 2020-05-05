@@ -1,15 +1,13 @@
 package com.kamiljacko.librarymanagementsystem.entity;
 
 
-import com.kamiljacko.librarymanagementsystem.ReservationStatus;
-
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 public class BookReservation {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     private Date creationDate;
     private ReservationStatus status;

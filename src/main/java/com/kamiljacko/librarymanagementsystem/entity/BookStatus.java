@@ -1,4 +1,4 @@
-package com.kamiljacko.librarymanagementsystem;
+package com.kamiljacko.librarymanagementsystem.entity;
 
 public enum BookStatus {
     AVAILABLE,

@@ -1,4 +1,4 @@
-package com.kamiljacko.librarymanagementsystem;
+package com.kamiljacko.librarymanagementsystem.model;
 
 
 import com.kamiljacko.librarymanagementsystem.entity.BookItem;
@@ -11,12 +11,8 @@ public class Catalog implements Search {
     public static final Catalog CATALOG = new Catalog();
 
     private static int totalBooks;
-    private static int bookItemListCounter;
 
     private final LocalDateTime creationDate;
-
-    private final List<List<BookItem>> bookItemList;
-    private final Map<String, List<BookItem>> books;
 
     private final Map<String, List> bookTitles;
     private final Map<String, List> bookAuthors;
@@ -28,60 +24,22 @@ public class Catalog implements Search {
             throw new IllegalStateException("Catalog already constructed");
         }
         totalBooks = 0;
-        bookItemListCounter = 0;
         this.creationDate = LocalDateTime.now();
-        this.bookItemList = new ArrayList<>();
-        this.books = new HashMap<>();
         this.bookTitles = new HashMap<>();
         this.bookAuthors = new HashMap<>();
         this.bookSubject = new HashMap<>();
         this.bookPublicationDates = new HashMap<>();
     }
 
-    //TODO clean code, testowanie
+
     public Map<String, List<BookItem>> updateCatalog(BookItem bookItem) {
-        if (!books.containsKey(bookItem.getISBN())) {
-            bookItemList.add(addBookItem(bookItem));
-            books.put(bookItem.getISBN(), bookItemList.get(bookItemListCounter));
-            bookItemListCounter++;
-        } else {
-            for (List<BookItem> list : bookItemList) {
-                if (list.get(0).getISBN().equals(bookItem.getISBN())) {
-                    list.add(bookItem);
-                }
-            }
-        }
-        return books;
+        return null;
     }
 
-    //splitted
-    private List<BookItem> addBookItem(BookItem bookItem) {
-        List<BookItem> tempList = new ArrayList<>();
-        tempList.add(bookItem);
-        return tempList;
-    }
-
-    public void printMap() {
-        for (String name : books.keySet()) {
-            System.out.println("Key: " + name);
-            System.out.print("Values: ");
-            books.get(name).forEach(System.out::println);
-        }
-    }
 
     //strategy?
     @Override
     public List<BookItem> searchByTitle(String title) {
-        for (List<BookItem> list : bookItemList) {
-            int i = 0;
-            while (i < list.size()) {
-                if (list.get(i).getTitle().equals(title)) {
-                    list.forEach(bookItem -> bookItem.getTitle());
-                    return list;
-                }
-                i++;
-            }
-        }
         return null; //throw custom exception?
     }
 

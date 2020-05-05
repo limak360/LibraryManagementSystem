@@ -1,23 +1,18 @@
 package com.kamiljacko.librarymanagementsystem.entity;
 
-import com.kamiljacko.librarymanagementsystem.AccountStatus;
-
 import javax.persistence.*;
-import java.util.List;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Account {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     private String password;
     private AccountStatus status;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Person> person;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Person person;
 
     public Account() {
     }
@@ -46,11 +41,21 @@ public abstract class Account {
         this.status = status;
     }
 
-    public List<Person> getPerson() {
+    public Person getPerson() {
         return person;
     }
 
-    public void setPerson(List<Person> person) {
+    public void setPerson(Person person) {
         this.person = person;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                ", person=" + person +
+                '}';
     }
 }

@@ -4,10 +4,11 @@ package com.kamiljacko.librarymanagementsystem.entity;
 import javax.persistence.*;
 import java.util.List;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Book {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     private String ISBN;
     private String title;
@@ -15,10 +16,7 @@ public abstract class Book {
     private String publisher;
     private String language;
     private int numberOfPages;
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Author> authors;
 
     public Book() {
@@ -86,5 +84,19 @@ public abstract class Book {
 
     public void setAuthors(List<Author> authors) {
         this.authors = authors;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", ISBN='" + ISBN + '\'' +
+                ", title='" + title + '\'' +
+                ", subject='" + subject + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", language='" + language + '\'' +
+                ", numberOfPages=" + numberOfPages +
+                ", authors=" + authors +
+                '}';
     }
 }
