@@ -108,11 +108,41 @@ public class QueryExample {
         bookItem.setPublicationDate(new Date(8));
         bookIemDAO.save(bookItem);
 
-        System.out.println("BookItem saved");
+        System.out.println("BookItem1 saved");
+
+        Author author2 = new Author();
+        author2.setName("Robert C.");
+        author2.setDescription("desc");
+        List<Author> authors = new ArrayList<>();
+        authors.add(author2);
+
+        BookItem bookItem2 = new BookItem();
+        bookItem2.setISBN("443-1093");
+        bookItem2.setTitle("Clean Code");
+        bookItem2.setSubject("Programming");
+        bookItem2.setPublisher("Helion");
+        bookItem2.setLanguage("english");
+        bookItem2.setNumberOfPages(270);
+        bookItem2.setAuthors(authors);
+        bookItem2.setBarCode("12442");
+        bookItem2.setBookFormat(BookFormat.EBOOK);
+        bookItem2.setBookStatus(BookStatus.LOANED);
+        bookItem2.setPrice(34.12);
+        bookItem2.setBorrowed(new Date());
+        bookItem2.setDueDate(new Date());
+        bookItem2.setDateOfPurchase(new Date());
+        bookItem2.setPublicationDate(new Date());
+        bookIemDAO.save(bookItem2);
+        System.out.println("BookItem2 saved");
     }
 
     @Transactional
     public void getBookItems() {
         System.out.println("BookItems : " + bookIemDAO.findAll());
+    }
+
+    @Transactional
+    public List<BookItem> getBookItem() {
+        return bookIemDAO.findAll();
     }
 }
