@@ -2,17 +2,17 @@ package com.kamiljacko.librarymanagementsystem.service;
 
 
 import com.kamiljacko.librarymanagementsystem.entity.AccountStatus;
-import com.kamiljacko.librarymanagementsystem.entity.BookFormat;
-import com.kamiljacko.librarymanagementsystem.entity.BookStatus;
 import com.kamiljacko.librarymanagementsystem.dao.*;
 import com.kamiljacko.librarymanagementsystem.entity.*;
+import com.kamiljacko.librarymanagementsystem.security.ApplicationUserRole;
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class QueryExample {
@@ -22,11 +22,42 @@ public class QueryExample {
     private Address address;
     private Person person;
 
-    public QueryExample(MemberDAO memberDAO, LibrarianDAO librarianDAO, BookIemDAO bookIemDAO) {
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public QueryExample(MemberDAO memberDAO, LibrarianDAO librarianDAO, BookIemDAO bookIemDAO, PasswordEncoder passwordEncoder) {
         this.memberDAO = memberDAO;
         this.librarianDAO = librarianDAO;
         this.bookIemDAO = bookIemDAO;
+        this.passwordEncoder = passwordEncoder;
     }
+
+    @Transactional
+    public void saveAdmin() {
+        address = new Address();
+        address.setCountry("UK");
+        address.setCity("London");
+        address.setState("state");
+        address.setZipCode("22-22");
+
+        person = new Person();
+        person.setName("Jeff");
+        person.setEmail("jeff@gmail.com");
+        person.setPhone("433332313");
+        person.setAddress(address);
+
+        Librarian librarian = new Librarian();
+        librarian.setName("Admin");
+        librarian.setApplicationUserRole(ApplicationUserRole.ADMIN);
+        librarian.setActive(true);
+        librarian.setPassword(passwordEncoder.encode("admin"));
+        librarian.setStatus(AccountStatus.NONE);
+        librarian.setPerson(person);
+        librarianDAO.save(librarian);
+
+        System.out.println("Admin saved");
+    }
+
 
     @Transactional
     public void saveLibrarian() {
@@ -43,12 +74,15 @@ public class QueryExample {
         person.setAddress(address);
 
         Librarian librarian = new Librarian();
-        librarian.setPassword("admin");
+        librarian.setName("Mark");
+        librarian.setApplicationUserRole(ApplicationUserRole.LIBRARIAN);
+        librarian.setActive(true);
+        librarian.setPassword(passwordEncoder.encode("librarian"));
         librarian.setStatus(AccountStatus.ACTIVE);
         librarian.setPerson(person);
         librarianDAO.save(librarian);
 
-        System.out.println("librarian saved");
+        System.out.println("Librarian saved");
     }
 
     @Transactional
@@ -66,8 +100,11 @@ public class QueryExample {
         person.setAddress(address);
 
         Member member = new Member();
-        member.setPassword("123");
-        member.setStatus(AccountStatus.BLACKLISTED);
+        member.setName("Kamil");
+        member.setApplicationUserRole(ApplicationUserRole.MEMBER);
+        member.setActive(true);
+        member.setPassword(passwordEncoder.encode("member"));
+        member.setStatus(AccountStatus.CLOSED);
         member.setPerson(person);
         member.setDateOfMembership(new Date());
         member.setTotalBooksCheckedout(2);
@@ -76,73 +113,14 @@ public class QueryExample {
         System.out.println("Member saved");
     }
 
-    @Transactional
-    public void getAccounts() {
-        System.out.println("Member : " + memberDAO.findAll());
-        System.out.println("Librarian : " + librarianDAO.findAll());
-    }
-
-    @Transactional
-    public void saveBookItem() {
-        Author author = new Author();
-        author.setName("Bruce");
-        author.setDescription("some description");
-        List<Author> authorList = new ArrayList<>();
-        authorList.add(author);
-
-        BookItem bookItem = new BookItem();
-        bookItem.setISBN("1234-567");
-        bookItem.setTitle("Thinking in Java");
-        bookItem.setSubject("IT");
-        bookItem.setPublisher("Helion");
-        bookItem.setLanguage("angielski");
-        bookItem.setNumberOfPages(400);
-        bookItem.setAuthors(authorList);
-        bookItem.setBarCode("388");
-        bookItem.setBookFormat(BookFormat.PAPERBACK);
-        bookItem.setBookStatus(BookStatus.AVAILABLE);
-        bookItem.setPrice(47.99);
-        bookItem.setBorrowed(new Date());
-        bookItem.setDueDate(new Date());
-        bookItem.setDateOfPurchase(new Date(11));
-        bookItem.setPublicationDate(new Date(8));
-        bookIemDAO.save(bookItem);
-
-        System.out.println("BookItem1 saved");
-
-        Author author2 = new Author();
-        author2.setName("Robert C.");
-        author2.setDescription("desc");
-        List<Author> authors = new ArrayList<>();
-        authors.add(author2);
-
-        BookItem bookItem2 = new BookItem();
-        bookItem2.setISBN("443-1093");
-        bookItem2.setTitle("Clean Code");
-        bookItem2.setSubject("Programming");
-        bookItem2.setPublisher("Helion");
-        bookItem2.setLanguage("english");
-        bookItem2.setNumberOfPages(270);
-        bookItem2.setAuthors(authors);
-        bookItem2.setBarCode("12442");
-        bookItem2.setBookFormat(BookFormat.EBOOK);
-        bookItem2.setBookStatus(BookStatus.LOANED);
-        bookItem2.setPrice(34.12);
-        bookItem2.setBorrowed(new Date());
-        bookItem2.setDueDate(new Date());
-        bookItem2.setDateOfPurchase(new Date());
-        bookItem2.setPublicationDate(new Date());
-        bookIemDAO.save(bookItem2);
-        System.out.println("BookItem2 saved");
-    }
-
-    @Transactional
-    public void getBookItems() {
-        System.out.println("BookItems : " + bookIemDAO.findAll());
-    }
-
-    @Transactional
-    public List<BookItem> getBookItem() {
-        return bookIemDAO.findAll();
-    }
+//    @Transactional
+//    public void getAccounts() {
+//        System.out.println("Member : " + memberDAO.findAll());
+//        System.out.println("Librarian : " + librarianDAO.findAll());
+//    }
+//
+//    @Transactional
+//    public List<BookItem> getBookItem() {
+//        return bookIemDAO.findAll();
+//    }
 }

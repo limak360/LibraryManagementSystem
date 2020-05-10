@@ -29,12 +29,4 @@ public class Member
     public void setTotalBooksCheckedout(int totalBooksCheckedout) {
         this.totalBooksCheckedout = totalBooksCheckedout;
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + ", " + "Member{" +
-                "dateOfMembership=" + dateOfMembership +
-                ", totalBooksCheckedout=" + totalBooksCheckedout +
-                '}';
-    }
 }

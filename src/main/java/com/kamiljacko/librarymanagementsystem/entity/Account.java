@@ -1,14 +1,21 @@
 package com.kamiljacko.librarymanagementsystem.entity;
 
+import com.kamiljacko.librarymanagementsystem.security.ApplicationUserRole;
+
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Account {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String name;
     private String password;
+    private ApplicationUserRole applicationUserRole;
+    private boolean active;
     private AccountStatus status;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -25,12 +32,36 @@ public abstract class Account {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ApplicationUserRole getApplicationUserRole() {
+        return applicationUserRole;
+    }
+
+    public void setApplicationUserRole(ApplicationUserRole applicationUserRole) {
+        this.applicationUserRole = applicationUserRole;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public AccountStatus getStatus() {
@@ -47,15 +78,5 @@ public abstract class Account {
 
     public void setPerson(Person person) {
         this.person = person;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", password='" + password + '\'' +
-                ", status=" + status +
-                ", person=" + person +
-                '}';
     }
 }
