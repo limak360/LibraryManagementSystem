@@ -25,11 +25,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/save", "index", "/css/*", "/js/*").permitAll()
-                .antMatchers("/api/main").permitAll()
-                .antMatchers("/api/main/**").hasAnyRole(ADMIN.name(), LIBRARIAN.name(), MEMBER.name())
-                .antMatchers("/api/lib").hasRole(LIBRARIAN.name())
-                .antMatchers("/api/admin").hasRole(ADMIN.name())
+                .antMatchers("/**").permitAll()
+//                .antMatchers("/save", "index", "/css/*", "/js/*").permitAll()
+//                .antMatchers("/api/main").permitAll()
+//                .antMatchers("/api/main/**").hasAnyRole(ADMIN.name(), LIBRARIAN.name(), MEMBER.name())
+//                .antMatchers("/api/lib").hasRole(LIBRARIAN.name())
+//                .antMatchers("/api/admin").hasRole(ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
