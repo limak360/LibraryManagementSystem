@@ -1,27 +1,26 @@
 package com.kamiljacko.librarymanagementsystem.entity;
 
 import com.kamiljacko.librarymanagementsystem.security.ApplicationUserRole;
-
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
+
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Account {
+public class AccountUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String password;
-    private ApplicationUserRole applicationUserRole;
+    private String email;
+    private String phone;
     private boolean active;
     private AccountStatus status;
+    private ApplicationUserRole applicationUserRole;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Person person;
+    private Address address;
 
-    public Account() {
+    public AccountUser() {
     }
 
     public int getId() {
@@ -48,12 +47,20 @@ public abstract class Account {
         this.password = password;
     }
 
-    public ApplicationUserRole getApplicationUserRole() {
-        return applicationUserRole;
+    public String getEmail() {
+        return email;
     }
 
-    public void setApplicationUserRole(ApplicationUserRole applicationUserRole) {
-        this.applicationUserRole = applicationUserRole;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public boolean isActive() {
@@ -72,11 +79,19 @@ public abstract class Account {
         this.status = status;
     }
 
-    public Person getPerson() {
-        return person;
+    public ApplicationUserRole getApplicationUserRole() {
+        return applicationUserRole;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setApplicationUserRole(ApplicationUserRole applicationUserRole) {
+        this.applicationUserRole = applicationUserRole;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

@@ -1,7 +1,7 @@
 package com.kamiljacko.librarymanagementsystem.auth;
 
 
-import com.kamiljacko.librarymanagementsystem.entity.Account;
+import com.kamiljacko.librarymanagementsystem.entity.AccountUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,7 +14,7 @@ public class ApplicationAccountUser implements UserDetails {
     private final boolean active;
     private final Set<? extends GrantedAuthority> grantedAuthorities;
 
-    public ApplicationAccountUser(Account account) {
+    public ApplicationAccountUser(AccountUser account) {
         this.accountName = account.getName();
         this.password = account.getPassword();
         this.active = account.isActive();

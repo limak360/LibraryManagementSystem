@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 import static com.kamiljacko.librarymanagementsystem.security.ApplicationUserRole.*;
@@ -35,16 +36,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
-                //.loginPage("/login")
+                .loginPage("/users/login")
                 .permitAll()
-                .defaultSuccessUrl("/api/main", true)
+                .defaultSuccessUrl("/library/books", true)
                 .and()
                 .logout()
-                .logoutUrl("/logout")
-                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
+                .logoutSuccessUrl("/library/books")
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/login");
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID");
     }
 
     @Override

@@ -1,7 +1,8 @@
 package com.kamiljacko.librarymanagementsystem.auth;
 
-import com.kamiljacko.librarymanagementsystem.dao.AccountDAO;
-import com.kamiljacko.librarymanagementsystem.entity.Account;
+
+import com.kamiljacko.librarymanagementsystem.dao.AccountUserDAO;
+import com.kamiljacko.librarymanagementsystem.entity.AccountUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,16 +14,16 @@ import java.util.Optional;
 @Service
 public class ApplicationAccountUserService implements UserDetailsService {
 
-    AccountDAO accountDAO;
+    AccountUserDAO accountUserDAO;
 
     @Autowired
-    public ApplicationAccountUserService(AccountDAO accountDAO) {
-        this.accountDAO = accountDAO;
+    public ApplicationAccountUserService(AccountUserDAO accountUserDAO) {
+        this.accountUserDAO = accountUserDAO;
     }
 
     @Override
     public UserDetails loadUserByUsername(String accountName) throws UsernameNotFoundException {
-        Optional<Account> user = accountDAO.findAccountByName(accountName);
+        Optional<AccountUser> user = accountUserDAO.findAccountByName(accountName);
 
         user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + accountName));
 
