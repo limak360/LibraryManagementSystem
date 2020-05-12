@@ -23,7 +23,7 @@ public class ApplicationAccountUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String accountName) throws UsernameNotFoundException {
-        Optional<AccountUser> user = accountUserDAO.findAccountByName(accountName);
+        Optional<AccountUser> user = accountUserDAO.findAccountUserByName(accountName);
 
         user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + accountName));
 
