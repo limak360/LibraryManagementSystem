@@ -1,18 +1,8 @@
-package com.kamiljacko.librarymanagementsystem.service;
+package com.kamiljacko.librarymanagementsystem.security.service;
 
 
-import com.kamiljacko.librarymanagementsystem.entity.AccountStatus;
-import com.kamiljacko.librarymanagementsystem.dao.*;
-import com.kamiljacko.librarymanagementsystem.entity.*;
-import com.kamiljacko.librarymanagementsystem.security.ApplicationUserRole;
-import org.checkerframework.checker.units.qual.A;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-
-import java.util.Date;
 
 @Service
 public class QueryExample {

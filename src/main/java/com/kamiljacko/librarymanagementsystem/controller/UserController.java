@@ -1,27 +1,32 @@
 package com.kamiljacko.librarymanagementsystem.controller;
 
 
-import com.kamiljacko.librarymanagementsystem.entity.AccountStatus;
-import com.kamiljacko.librarymanagementsystem.entity.AccountUser;
-import com.kamiljacko.librarymanagementsystem.security.ApplicationUserRole;
-import com.kamiljacko.librarymanagementsystem.service.AccountUserService;
-import com.kamiljacko.librarymanagementsystem.service.QueryExample;
+import com.kamiljacko.librarymanagementsystem.security.dto.UserRegistrationDto;
+import com.kamiljacko.librarymanagementsystem.security.model.User;
+import com.kamiljacko.librarymanagementsystem.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping("/users/")
 public class UserController {
 
-    private final QueryExample queryExample;
-    private final AccountUserService accountUserService;
+    private final UserService userService;
 
     @Autowired
-    public UserController(QueryExample queryExample, AccountUserService accountUserService) {
-        this.queryExample = queryExample;
-        this.accountUserService = accountUserService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @ModelAttribute("user")
+    public UserRegistrationDto userRegistrationDto() {
+        return new UserRegistrationDto();
     }
 
     @RequestMapping("login")
@@ -29,26 +34,35 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/registration")
-    public String register(Model model){
-        AccountUser accountUser = new AccountUser();
-        accountUser.setActive(true);
-        accountUser.setApplicationUserRole(ApplicationUserRole.MEMBER);
-        accountUser.setStatus(AccountStatus.ACTIVE);
-        model.addAttribute("User", accountUser);
-
+    @GetMapping("registration")
+    public String showRegistrationForm(Model model) {
         return "registration";
     }
 
-    @PostMapping("/register")
-    public String register(@ModelAttribute AccountUser accountUser) {
-        accountUserService.save(accountUser);
+    @PostMapping("registration")
+    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
+                                      BindingResult result) {
 
-        return "redirect:/users/registration";
+        User existing = userService.findByEmail(userDto.getEmail());
+        if (existing != null) {
+            result.rejectValue("email", null, "There is already an account registered with that email");
+        }
+
+        if (result.hasErrors()) {
+            return "registration";
+        }
+
+        userService.save(userDto);
+        return "redirect:/users/registration?success";
+    }
+
+    @GetMapping("reset")
+    public String showResetForm(Model model) {
+        return "reset";
     }
 
     @PostMapping("reset")
     public String resetPassword(@RequestParam String email) {
-        return "reset";
+        return "redirect:/users/login";
     }
 }

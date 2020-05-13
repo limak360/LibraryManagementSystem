@@ -1,4 +1,4 @@
-package com.kamiljacko.librarymanagementsystem.security;
+package com.kamiljacko.librarymanagementsystem.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

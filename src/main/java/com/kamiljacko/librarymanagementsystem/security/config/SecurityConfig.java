@@ -1,25 +1,41 @@
-package com.kamiljacko.librarymanagementsystem.security;
+package com.kamiljacko.librarymanagementsystem.security.config;
 
 
-import com.kamiljacko.librarymanagementsystem.auth.ApplicationAccountUserService;
+import com.kamiljacko.librarymanagementsystem.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-
-import static com.kamiljacko.librarymanagementsystem.security.ApplicationUserRole.*;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final ApplicationAccountUserService applicationAccountUserService;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public SecurityConfig(ApplicationAccountUserService applicationAccountUserService) {
-        this.applicationAccountUserService = applicationAccountUserService;
+    public SecurityConfig(UserService userService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        auth.setUserDetailsService(userService);
+        auth.setPasswordEncoder(passwordEncoder);
+        return auth;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
@@ -27,11 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
-//                .antMatchers("/save", "index", "/css/*", "/js/*").permitAll()
 //                .antMatchers("/api/main").permitAll()
-//                .antMatchers("/api/main/**").hasAnyRole(ADMIN.name(), LIBRARIAN.name(), MEMBER.name())
-//                .antMatchers("/api/lib").hasRole(LIBRARIAN.name())
-//                .antMatchers("/api/admin").hasRole(ADMIN.name())
+//                .antMatchers("/api/main/**").hasAnyRole(ROLE_ADMIN, ROLE_LIBRARIAN, ROLE_USER)
+//                .antMatchers("/api/lib").hasRole(ROLE_LIBRARIAN)
+//                .antMatchers("/api/admin").hasRole(ROLE_ADMIN)
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -46,10 +61,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .deleteCookies("JSESSIONID");
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(applicationAccountUserService);
     }
 }
