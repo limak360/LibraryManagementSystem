@@ -8,11 +8,7 @@
 </head>
 <body>
 <div class="container-fluid">
-
-    <div class="text-center d-block mt-xl-3 mb-lg-3 mt-lg-3 mb-lg-3 mt-md-3 mb-md-3 mt-sm-3 mb-sm-3">
-        <img th:src="@{/images/logo.png}" class="rounded" alt="logo">
-    </div>
-
+    <div th:replace="nav-fragment"></div>
     <div class="row">
         <div class="p-3 col-xl-2 col-lg-3 col-md-2 col-sm-1" style="background-color: lightslategray">
             <label></label>
@@ -43,6 +39,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="bookitem: ${list}">
+                    <!--     can use th:field instead of name, input type -->
                     <td th:text="id" tabindex="-1"></td>
                     <td th:text="${bookitem.getTitle()}" tabindex="-1"></td>
                     <td th:text="${bookitem.getSubject()}" tabindex="-1"></td>
@@ -54,7 +51,7 @@
             </table>
         </div>
     </div>
-
 </div>
+<div th:replace="footer-fragment"></div>
 </body>
 </html>

@@ -2,12 +2,13 @@ package com.kamiljacko.librarymanagementsystem.security.model;
 
 import com.kamiljacko.librarymanagementsystem.entity.AccountStatus;
 import com.kamiljacko.librarymanagementsystem.entity.Address;
+
 import javax.persistence.*;
 import java.util.Collection;
 
-
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

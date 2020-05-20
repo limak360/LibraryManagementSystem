@@ -1,6 +1,6 @@
 package com.kamiljacko.librarymanagementsystem.security.service;
 
-import com.kamiljacko.librarymanagementsystem.security.dto.UserRegistrationDto;
+import com.kamiljacko.librarymanagementsystem.security.dto.UserRegistrationDTO;
 import com.kamiljacko.librarymanagementsystem.security.model.Role;
 import com.kamiljacko.librarymanagementsystem.security.model.User;
 import com.kamiljacko.librarymanagementsystem.security.repository.UserRepository;
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    public User save(UserRegistrationDto registration) {
+    public User save(UserRegistrationDTO registration) {
         User user = new User();
         user.setFirstName(registration.getFirstName());
         user.setLastName(registration.getLastName());

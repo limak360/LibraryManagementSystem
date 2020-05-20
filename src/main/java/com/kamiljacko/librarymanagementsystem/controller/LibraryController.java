@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/library/")
+@RequestMapping("/library/main")
 public class LibraryController {
 
     @GetMapping("books")
     public String getBooks(){
-        return "main";
+        return "redirect:";
     }
 
     @GetMapping("books/bookId")
     public String getBook(){
-        return "main";
+        return "redirect:/...";
     }
 
     @GetMapping

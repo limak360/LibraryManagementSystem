@@ -22,7 +22,6 @@ public @interface FieldMatch {
     Class<? extends Payload>[] payload() default {};
 
     String first();
-
     String second();
 
     @Target({TYPE, ANNOTATION_TYPE})
