@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/users/login")
                 .permitAll()
-                .defaultSuccessUrl("/library/books", true)
+                .defaultSuccessUrl("/library/main", true)
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))

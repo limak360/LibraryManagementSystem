@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/library/main")
 public class LibraryController {
 
-    @GetMapping("books")
-    public String getBooks(){
-        return "redirect:";
-    }
-
-    @GetMapping("books/bookId")
-    public String getBook(){
-        return "redirect:/...";
-    }
-
     @GetMapping
-    public String showAddBookForm(Model model){
+    public String getMainView() {
+        return "mainview/main";
+    }
+
+//    @GetMapping("books/bookId")
+//    public String getBook() {
+//        return "redirect:/...";
+//    }
+
+    @GetMapping("/form")
+    public String showAddBookForm(Model model) {
         return "";
     }
 }

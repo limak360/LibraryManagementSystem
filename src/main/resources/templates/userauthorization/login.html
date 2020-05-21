@@ -19,15 +19,15 @@
                 <form th:action="@{/users/login}" method="post" class="form-signin">
                     <div th:if="${param.error}">
                         <div class="alert alert-danger">
-                            Invalid email or password.
+                            Invalid username or password.
                         </div>
                     </div>
                     <input type="text"
-                           id="email"
+                           id="username"
                            name="username"
                            class="form-control"
                            autofocus="autofocus"
-                           placeholder="E-mail"/>
+                           placeholder="Username"/>
                     <br>
                     <input type="password"
                            id="password"
@@ -38,6 +38,7 @@
                     <button class="btn btn-lg btn-primary btn-block" type="submit">
                         Log in
                     </button>
+                    <a href="/users/forgotPassword" class="pull-left">Forget password? </a>
                     <a href="/users/registration" class="pull-right">Create an account </a>
                 </form>
             </div>
