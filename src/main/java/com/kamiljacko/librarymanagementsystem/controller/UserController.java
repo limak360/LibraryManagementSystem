@@ -1,6 +1,7 @@
 package com.kamiljacko.librarymanagementsystem.controller;
 
 
+import com.kamiljacko.librarymanagementsystem.security.dto.PasswordDto;
 import com.kamiljacko.librarymanagementsystem.security.dto.UserRegistrationDto;
 import com.kamiljacko.librarymanagementsystem.security.model.User;
 import com.kamiljacko.librarymanagementsystem.security.service.UserService;
@@ -23,10 +24,12 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
+    private final PasswordDto passwordDto;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PasswordDto passwordDto) {
         this.userService = userService;
+        this.passwordDto = passwordDto;
     }
 
     @ModelAttribute("user")
@@ -70,16 +73,16 @@ public class UserController {
     public String forgotPassword(@ModelAttribute("user") @Valid UserRegistrationDto userRegistrationDto,
                                  BindingResult result) {
 
-        //todo findbyemail
-        User existing = userService.findByUsername(userRegistrationDto.getUsername());
+        User existing = userService.findByEmail(userRegistrationDto.getEmail());
         if (existing == null) {
-            result.rejectValue("username", null, "There is no account registered with that username");
+            result.rejectValue("email", null, "There is no account registered with that email");
         }
 
         if (result.hasErrors()) {
             return "userauthorization/password-forgot";
         }
-        //sending an email with link and link must have some kind of token to tell who is the user
+
+//        sending an email with link and link must have some kind of token to tell who is the user
 //        userService.
 
         return "redirect:/users/forgotPassword?success";
@@ -94,6 +97,7 @@ public class UserController {
     public String resetPassword() {
         //check for token
         //form user provides new password
+
 
         return "redirect:/users/resetPassword?success";
     }

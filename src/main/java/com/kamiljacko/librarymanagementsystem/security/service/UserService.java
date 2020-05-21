@@ -8,5 +8,9 @@ public interface UserService extends UserDetailsService {
 
     User findByUsername(String username);
 
+    User findByEmail(String email);
+
     User save(UserRegistrationDto registration);
+
+    //void changeUserPassword(User user, String password);
 }

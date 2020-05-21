@@ -1,6 +1,7 @@
 package com.kamiljacko.librarymanagementsystem.security.service;
 
 import com.kamiljacko.librarymanagementsystem.security.dto.UserRegistrationDto;
+import com.kamiljacko.librarymanagementsystem.security.model.PasswordResetToken;
 import com.kamiljacko.librarymanagementsystem.security.model.Role;
 import com.kamiljacko.librarymanagementsystem.security.model.User;
 import com.kamiljacko.librarymanagementsystem.security.repository.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -43,6 +45,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     public User save(UserRegistrationDto registration) {
         User user = new User();
         user.setUsername(registration.getUsername());
@@ -51,6 +57,11 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Arrays.asList(new Role("ROLE_USER")));
         return userRepository.save(user);
     }
+
+//    public void changeUserPassword(User user, String password) {
+//        user.setPassword(passwordEncoder.encode(password));
+//        userRepository.save(user);
+//    }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream()
