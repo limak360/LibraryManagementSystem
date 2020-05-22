@@ -1,24 +1,18 @@
 package com.kamiljacko.librarymanagementsystem.security.dto;
 
-import org.springframework.stereotype.Component;
+import com.kamiljacko.librarymanagementsystem.security.constrain.FieldMatch;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
-@Component
+@FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
 public class PasswordDto {
 
-    private String oldPassword;
-    private  String token;
-    @NotNull
+    private String token;
+    @NotEmpty
     private String newPassword;
+    @NotEmpty
+    private String confirmNewPassword;
 
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
 
     public String getToken() {
         return token;
@@ -34,5 +28,13 @@ public class PasswordDto {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    public String getConfirmNewPassword() {
+        return confirmNewPassword;
+    }
+
+    public void setConfirmNewPassword(String confirmNewPassword) {
+        this.confirmNewPassword = confirmNewPassword;
     }
 }

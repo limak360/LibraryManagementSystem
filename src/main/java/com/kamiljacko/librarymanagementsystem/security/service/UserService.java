@@ -4,13 +4,21 @@ import com.kamiljacko.librarymanagementsystem.security.dto.UserRegistrationDto;
 import com.kamiljacko.librarymanagementsystem.security.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.Optional;
+
 public interface UserService extends UserDetailsService {
 
     User findByUsername(String username);
 
     User findByEmail(String email);
 
-    User save(UserRegistrationDto registration);
+    void save(UserRegistrationDto registration);
 
-    //void changeUserPassword(User user, String password);
+    void changeUserPassword(User user, String password);
+
+    void createPasswordResetTokenForUser(final User user, final String token);
+
+    String validatePasswordResetToken(String token);
+
+    Optional<User> getUserByPasswordResetToken(String token);
 }
