@@ -79,7 +79,7 @@ public class UserController {
         return "security/password-forgot";
     }
 
-    //todo
+
     @PostMapping("forgotPassword")
     public String forgotPassword(final HttpServletRequest request, @RequestParam("email") final String email) {
 
@@ -91,40 +91,44 @@ public class UserController {
             mailService.sendMail(request, token, existing);
             return "redirect:/users/forgotPassword?success";
         }
-//
         return "redirect:/users/forgotPassword?error";
     }
 
     @GetMapping("resetPassword")
-    public String showResetPasswordForm(@RequestParam("token") final String token, Model model) {
+    public String showResetPasswordForm(@RequestParam(required = false, value = "token") final String token, Model model) {
 
         final String resetToken = userService.validatePasswordResetToken(token);
 
         if (resetToken != null) {
-            model.addAttribute("token", token);
+            return "redirect:/users/resetPassword?error";
         }
+
+        model.addAttribute("token", token);
         return "security/password-reset";
     }
 
-    //
+//    @GetMapping("resetPassword?success")
+//    @ResponseBody
+//    public String showResetPasswordSuccessForm(){
+//        return "gratulacje poprawnie zresetowano haslo";
+//    }
+
     @PostMapping("resetPassword")
     public String resetPassword(@ModelAttribute("password") @Valid PasswordDto passwordDto, BindingResult result) {
 
         final String token = userService.validatePasswordResetToken(passwordDto.getToken());
 
-        if (token == null) {
-            result.rejectValue("token", null, "Invalid token or token expired");
-            return "security/password-reset";
+        if (token != null) {
+            result.rejectValue("token", null, "Invalid token / token has expired");
         }
 
         Optional<User> user = userService.getUserByPasswordResetToken(passwordDto.getToken());
 
         if (!user.isPresent()) {
             result.rejectValue("token", null, "Invalid token");
-            return "security/password-reset";
+        } else {
+            userService.changeUserPassword(user.get(), passwordDto.getNewPassword());
         }
-
-        userService.changeUserPassword(user.get(), passwordDto.getNewPassword());
 
         return "redirect:/users/resetPassword?success";
     }

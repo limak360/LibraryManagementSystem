@@ -3,6 +3,7 @@ package com.kamiljacko.librarymanagementsystem.security.model;
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 public class PasswordResetToken {
@@ -77,5 +78,31 @@ public class PasswordResetToken {
     public void updateToken(final String token) {
         this.token = token;
         this.expiryDate = calculateExpiryDate(EXPIRATION);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PasswordResetToken that = (PasswordResetToken) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(token, that.token) &&
+                Objects.equals(user, that.user) &&
+                Objects.equals(expiryDate, that.expiryDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, token, user, expiryDate);
+    }
+
+    @Override
+    public String toString() {
+        return "PasswordResetToken{" +
+                "id=" + id +
+                ", token='" + token + '\'' +
+                ", user=" + user +
+                ", expiryDate=" + expiryDate +
+                '}';
     }
 }

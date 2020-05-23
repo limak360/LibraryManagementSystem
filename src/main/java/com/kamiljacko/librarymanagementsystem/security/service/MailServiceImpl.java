@@ -20,11 +20,11 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendMail(HttpServletRequest request, final String token, final User user) {
+    public void sendMail(final HttpServletRequest request, final String token, final User user) {
         System.out.println(constructResetTokenEmail(getAppUrl(request), token, user).toString());
-        //mailSender.send(constructResetTokenEmail(getAppUrl(request), token, user));
+       // mailSender.send(constructResetTokenEmail(getAppUrl(request), token, user));
     }
-
+//
     private SimpleMailMessage constructResetTokenEmail(final String contextPath, final String token, final User user) {
         final String url = contextPath + "/users/resetPassword?token=" + token;
         final String message = "Click link to reset your password";

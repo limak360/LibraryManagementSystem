@@ -4,7 +4,7 @@ import com.kamiljacko.librarymanagementsystem.security.constrain.FieldMatch;
 
 import javax.validation.constraints.NotEmpty;
 
-@FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
+@FieldMatch(first = "newPassword", second = "confirmNewPassword", message = "The password fields must match")
 public class PasswordDto {
 
     private String token;
@@ -36,5 +36,14 @@ public class PasswordDto {
 
     public void setConfirmNewPassword(String confirmNewPassword) {
         this.confirmNewPassword = confirmNewPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "PasswordDto{" +
+                "token='" + token + '\'' +
+                ", newPassword='" + newPassword + '\'' +
+                ", confirmNewPassword='" + confirmNewPassword + '\'' +
+                '}';
     }
 }
