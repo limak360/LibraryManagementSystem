@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 public class PasswordResetToken {
 
-    private static final int EXPIRATION = 60 * 6;
+    private static final int EXPIRATION = 1; //60 * 6;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,11 +22,9 @@ public class PasswordResetToken {
     private Date expiryDate;
 
     public PasswordResetToken() {
-        super();
     }
 
     public PasswordResetToken(String token, User user) {
-        super();
         this.token = token;
         this.user = user;
         this.expiryDate = calculateExpiryDate(EXPIRATION);

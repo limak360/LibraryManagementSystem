@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -63,6 +64,12 @@ public class UserController {
             result.rejectValue("username", null, "There is already an account registered with that username");
         }
 
+        existing = userService.findByEmail(userRegistrationDto.getEmail());
+
+        if (existing != null) {
+            result.rejectValue("email", null, "There is already an account registered with that email");
+        }
+
         if (result.hasErrors()) {
             return "security/registration";
         }
@@ -100,36 +107,37 @@ public class UserController {
         final String resetToken = userService.validatePasswordResetToken(token);
 
         if (resetToken != null) {
-            return "redirect:/users/resetPassword?error";
+            return "redirect:/users/login?Invalid";
         }
 
         model.addAttribute("token", token);
+
         return "security/password-reset";
     }
 
-//    @GetMapping("resetPassword?success")
-//    @ResponseBody
-//    public String showResetPasswordSuccessForm(){
-//        return "gratulacje poprawnie zresetowano haslo";
-//    }
-
-    @PostMapping("resetPassword")
-    public String resetPassword(@ModelAttribute("password") @Valid PasswordDto passwordDto, BindingResult result) {
+    @PostMapping("savePassword")
+    public String resetPassword(@ModelAttribute("password") @Valid PasswordDto passwordDto, BindingResult result, RedirectAttributes redirectAttributes) {
 
         final String token = userService.validatePasswordResetToken(passwordDto.getToken());
 
         if (token != null) {
-            result.rejectValue("token", null, "Invalid token / token has expired");
+            return "redirect:/users/login?Invalid";
         }
 
         Optional<User> user = userService.getUserByPasswordResetToken(passwordDto.getToken());
 
         if (!user.isPresent()) {
-            result.rejectValue("token", null, "Invalid token");
+            return "redirect:/users/login?Invalid";
         } else {
             userService.changeUserPassword(user.get(), passwordDto.getNewPassword());
         }
 
-        return "redirect:/users/resetPassword?success";
+        if (result.hasErrors()) {
+//            result.rejectValue("newPassword", null, "error");
+//            redirectAttributes.addFlashAttribute("error", result);
+            return "redirect:/users/resetPassword?token=" + passwordDto.getToken();
+        }
+
+        return "redirect:/users/login?resetSuccess";
     }
 }
