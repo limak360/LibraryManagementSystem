@@ -1,27 +1,26 @@
 package com.kamiljacko.librarymanagementsystem.controller;
 
-
+import com.kamiljacko.librarymanagementsystem.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/library/main")
+@RequestMapping("/library/")
 public class LibraryController {
 
-    @GetMapping
-    public String getMainView() {
-        return "mainview/main";
+    private final BookService bookService;
+
+    @Autowired
+    public LibraryController(BookService bookService) {
+        this.bookService = bookService;
     }
 
-//    @GetMapping("books/bookId")
-//    public String getBook() {
-//        return "redirect:/...";
-//    }
-
-    @GetMapping("/form")
-    public String showAddBookForm(Model model) {
-        return "";
+    @GetMapping("main")
+    public String getMainView(Model model) {
+        model.addAttribute("listOfBooks", bookService.findAll());
+        return "mainview/main";
     }
 }

@@ -1,33 +1,28 @@
-package com.kamiljacko.librarymanagementsystem.entity;
+package com.kamiljacko.librarymanagementsystem.dto;
 
+import com.kamiljacko.librarymanagementsystem.entity.Author;
+import com.kamiljacko.librarymanagementsystem.entity.BookFormat;
+import com.kamiljacko.librarymanagementsystem.entity.BookStatus;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import java.util.List;
+import java.util.*;
 
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class BookDto {
+    //todo validation
     private String ISBN;
     private String title;
     private String subject;
     private String publisher;
     private String language;
     private int numberOfPages;
-    @OneToMany(cascade = CascadeType.ALL)
     private List<Author> authors;
+    private BookFormat bookFormat;
+    private BookStatus bookStatus;
 
-    public Book() {
-    }
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date publicationDate;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public BookDto() {
     }
 
     public String getISBN() {
@@ -82,21 +77,31 @@ public abstract class Book {
         return authors;
     }
 
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
+    public void setAuthors(Author author) {
+        authors.add(author);
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", ISBN='" + ISBN + '\'' +
-                ", title='" + title + '\'' +
-                ", subject='" + subject + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", language='" + language + '\'' +
-                ", numberOfPages=" + numberOfPages +
-                ", authors=" + authors +
-                '}';
+    public BookFormat getBookFormat() {
+        return bookFormat;
+    }
+
+    public void setBookFormat(BookFormat bookFormat) {
+        this.bookFormat = bookFormat;
+    }
+
+    public BookStatus getBookStatus() {
+        return bookStatus;
+    }
+
+    public void setBookStatus(BookStatus bookStatus) {
+        this.bookStatus = bookStatus;
+    }
+
+    public Date getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(Date publicationDate) {
+        this.publicationDate = publicationDate;
     }
 }

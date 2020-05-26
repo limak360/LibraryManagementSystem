@@ -2,7 +2,7 @@ package com.kamiljacko.librarymanagementsystem.controller;
 
 
 import com.kamiljacko.librarymanagementsystem.security.dto.PasswordDto;
-import com.kamiljacko.librarymanagementsystem.security.dto.UserRegistrationDto;
+import com.kamiljacko.librarymanagementsystem.security.dto.UserDto;
 import com.kamiljacko.librarymanagementsystem.security.model.User;
 import com.kamiljacko.librarymanagementsystem.security.service.MailService;
 import com.kamiljacko.librarymanagementsystem.security.service.UserService;
@@ -36,8 +36,8 @@ public class UserController {
     }
 
     @ModelAttribute("user")
-    public UserRegistrationDto userRegistrationDto() {
-        return new UserRegistrationDto();
+    public UserDto userDto() {
+        return new UserDto();
     }
 
     @ModelAttribute("password")
@@ -56,15 +56,15 @@ public class UserController {
     }
 
     @PostMapping("registration")
-    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userRegistrationDto,
+    public String registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto,
                                       BindingResult result) {
 
-        User existing = userService.findByUsername(userRegistrationDto.getUsername());
+        User existing = userService.findByUsername(userDto.getUsername());
         if (existing != null) {
             result.rejectValue("username", null, "There is already an account registered with that username");
         }
 
-        existing = userService.findByEmail(userRegistrationDto.getEmail());
+        existing = userService.findByEmail(userDto.getEmail());
 
         if (existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
@@ -74,11 +74,10 @@ public class UserController {
             return "security/registration";
         }
 
-        userService.save(userRegistrationDto);
+        userService.save(userDto);
 
         return "redirect:/users/registration?success";
     }
-
 
     //password reset
     @GetMapping("forgotPassword")
@@ -133,8 +132,8 @@ public class UserController {
         }
 
         if (result.hasErrors()) {
-//            result.rejectValue("newPassword", null, "error");
-//            redirectAttributes.addFlashAttribute("error", result);
+            redirectAttributes.addFlashAttribute(BindingResult.class.getName() + ".password", result);
+            redirectAttributes.addFlashAttribute("password", passwordDto);
             return "redirect:/users/resetPassword?token=" + passwordDto.getToken();
         }
 

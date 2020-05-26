@@ -3,10 +3,12 @@ package com.kamiljacko.librarymanagementsystem.security.service;
 
 import com.kamiljacko.librarymanagementsystem.security.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
@@ -21,23 +23,24 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendMail(final HttpServletRequest request, final String token, final User user) {
-        System.out.println(constructResetTokenEmail(getAppUrl(request), token, user).toString());
-       // mailSender.send(constructResetTokenEmail(getAppUrl(request), token, user));
-    }
-//
-    private SimpleMailMessage constructResetTokenEmail(final String contextPath, final String token, final User user) {
-        final String url = contextPath + "/users/resetPassword?token=" + token;
-        final String message = "Click link to reset your password";
-        return constructEmail("Password reset", message + " \r\n" + url, user);
-    }
 
-    private SimpleMailMessage constructEmail(String subject, String body, User user) {
-        final SimpleMailMessage email = new SimpleMailMessage();
-        email.setSubject(subject);
-        email.setText(body);
-        email.setTo(user.getEmail());
-        email.setFrom(System.getProperty("support.email"));
-        return email;
+        final String html = "<h3>Hi! Click the link to reset your password.</h3>" +
+                "<a href=" + getAppUrl(request) + "/users/resetPassword?token=" + token + ">reset password</a>";
+
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            message.setSubject("Password reset");
+
+            MimeMessageHelper helper;
+            helper = new MimeMessageHelper(message, true);
+            helper.setFrom("from");
+            helper.setTo(user.getEmail());
+            helper.setText(html, true);
+
+            mailSender.send(message);
+        } catch (MessagingException ex) {
+            //
+        }
     }
 
     private String getAppUrl(HttpServletRequest request) {

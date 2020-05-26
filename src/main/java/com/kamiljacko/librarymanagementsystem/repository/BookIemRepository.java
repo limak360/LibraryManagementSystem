@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookIemRepository extends JpaRepository<BookItem, Integer> {
+
+//    BookItem findBy();
 }

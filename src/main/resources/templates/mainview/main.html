@@ -24,9 +24,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="bookitem: ${list}">
-                    <!--     can use th:field instead of name, input type -->
-                    <td th:text="id" tabindex="-1"></td>
+                <tr th:each="bookitem: ${listOfBooks}">
+                    <td th:text="${bookitem.getId()}" tabindex="-1"></td>
                     <td th:text="${bookitem.getTitle()}" tabindex="-1"></td>
                     <td th:text="${bookitem.getSubject()}" tabindex="-1"></td>
                     <td th:text="${bookitem.getNumberOfPages()}" tabindex="-1"></td>

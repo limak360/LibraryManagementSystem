@@ -1,6 +1,6 @@
 package com.kamiljacko.librarymanagementsystem.security.service;
 
-import com.kamiljacko.librarymanagementsystem.security.dto.UserRegistrationDto;
+import com.kamiljacko.librarymanagementsystem.security.dto.UserDto;
 import com.kamiljacko.librarymanagementsystem.security.model.PasswordResetToken;
 import com.kamiljacko.librarymanagementsystem.security.model.Role;
 import com.kamiljacko.librarymanagementsystem.security.model.User;
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(UserRegistrationDto registration) {
+    public void save(UserDto registration) {
         User user = new User();
         user.setUsername(registration.getUsername());
         user.setEmail(registration.getEmail());

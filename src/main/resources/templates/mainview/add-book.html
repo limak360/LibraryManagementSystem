@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid">
+    <div th:if="${param.success}" class="alert alert-info">
+        You've successfully added new book!
+    </div>
+    <div th:replace="mainview/nav-fragment"></div>
+    <div class="row">
+
+        <div th:replace="mainview/side-fragment"></div>
+
+        <div class="ml-3 col-xl-3 col-lg-3 col-md-3 col-sm-2">
+            <div class="account-wall">
+                <form th:action="@{/books/addBook}" th:object="${book}" method="post">
+
+                    <p class="error-message"
+                       th:if="${#fields.hasGlobalErrors()}"
+                       th:each="error : ${#fields.errors('global')}"
+                       th:text="${error}">Validation error</p>
+
+                    <div class="form-group" th:classappend="${#fields.hasErrors('ISBN')}? 'has-error':''">
+                        <label for="isbn">ISBN</label>
+                        <input id="isbn"
+                               class="form-control"
+                               th:field="*{ISBN}"/>
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('ISBN')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('title')}? 'has-error':''">
+                        <label for="title">Title</label>
+                        <input id="title"
+                               class="form-control"
+                               th:field="*{title}"/>
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('title')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('subject')}? 'has-error':''">
+                        <label for="subject">Subject</label>
+                        <input id="subject"
+                               class="form-control"
+                               th:field="*{subject}"/>
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('subject')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('publisher')}? 'has-error':''">
+                        <label for="publisher">Publisher</label>
+                        <input id="publisher"
+                               class="form-control"
+                               th:field="*{publisher}"/>
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('publisher')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('language')}? 'has-error':''">
+                        <label for="language">Language</label>
+                        <input id="language"
+                               class="form-control"
+                               th:field="*{language}"/>
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('language')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="numberOfPages" th:classappend="${#fields.hasErrors('numberOfPages')}? 'has-error':''">
+                        <label for="numberOfPages">Number Of Pages</label>
+                        <input id="numberOfPages"
+                               class="form-control"
+                               th:field="*{numberOfPages}"/>
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('numberOfPages')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('authors')}? 'has-error':''">
+
+<!--                        <label>Book Authors</label><br>-->
+<!--                        <label>Name</label>-->
+<!--                        <p th:each="feature,stat:*{getAuthors()}">-->
+<!--                            <input id="name" class="form-group" th:field="*{getAuthors()[__${stat.index}__].name}">-->
+<!--                        </p>-->
+<!--                        <button>Add Author</button>-->
+
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('authors')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('bookFormat')}? 'has-error':''">
+                        <label for="bookFormat">Book Format</label>
+                        <select class="form-control" id="bookFormat" th:field="*{bookFormat}">
+                            <option th:each="format: ${BookFormat}"
+                                    th:value="${format}"
+                                    th:text="${format.getDisplayName()}">
+                            </option>
+                        </select>
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('bookFormat')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('bookStatus')}? 'has-error':''">
+                        <label for="bookStatus">Book Status</label>
+                        <select class="form-control" id="bookStatus" th:field="*{bookStatus}">
+                            <option th:each="status: ${BookStatus}"
+                                    th:value="${status}"
+                                    th:text="${status}">
+                            </option>
+                        </select>
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('bookStatus')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('publicationDate')}? 'has-error':''">
+                        <label for="publicationDate">Publication Date</label><br>
+                        <input class="form-group" type="date" id="publicationDate" name="publicationDate"
+                               th:field="*{publicationDate}">
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('publicationDate')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-lg btn-primary">Add Book</button>
+                        <br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="mainview/footer-fragment"></div>
+</body>
+</html>
