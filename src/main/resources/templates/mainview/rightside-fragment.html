@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div sec:authorize="isAuthenticated()" th:fragment="side" class="ml-5 col-2" style="background-color: lightslategray">
+    Hello <span sec:authentication="name"></span>!<br>
+
+    <a th:href="@{/library/card}">Library card</a><br>
+    <a th:href="@{/books/getBooks}">Books borrowed</a><br>
+    Notifications<br>
+    Account<br>
+
+    <form th:action="@{/users/logout}" method="post">
+        <button type="submit" class="btn btn-lg btn-primary">Logout</button>
+    </form>
+</div>
+
+<div sec:authorize="isAnonymous()" th:fragment="side" class="ml-5 col-2" style="background-color: transparent">
+</div>
+
+</body>
+</html>

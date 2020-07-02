@@ -13,7 +13,6 @@ public class LibraryCard {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int Id;
     private String cardNumber;
-    private String barCode;
     private Date issuedAt;
     private boolean active;
 
@@ -34,14 +33,6 @@ public class LibraryCard {
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
-    }
-
-    public String getBarCode() {
-        return barCode;
-    }
-
-    public void setBarCode(String barCode) {
-        this.barCode = barCode;
     }
 
     public Date getIssuedAt() {

@@ -10,4 +10,6 @@ public interface BookService {
     void save(BookDto bookDto);
 
     List<BookItem> findAll();
+
+    List<BookItem> findByTitle(String title);
 }

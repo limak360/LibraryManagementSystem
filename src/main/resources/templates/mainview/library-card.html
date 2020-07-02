@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Card</title>
+</head>
+<body>
+<!--check if card was issued if not can be issued-->
+<form th:action="@{/library/card}">
+    <form th:action="@{/library/main}" method="post">
+        <input type="hidden" id="name" th:name="${#authorization.expression(name)">
+    </form>
+    <button type="submit" class="btn btn-lg btn-primary">Activate library card</button>
+</form>
+</body>
+</html>

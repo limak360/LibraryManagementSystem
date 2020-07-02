@@ -46,4 +46,9 @@ public class BookServiceImpl implements BookService {
     public List<BookItem> findAll() {
         return bookIemRepository.findAll();
     }
+
+    @Override
+    public List<BookItem> findByTitle(String title) {
+        return bookIemRepository.findByTitle(title);
+    }
 }

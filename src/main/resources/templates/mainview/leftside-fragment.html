@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:fragment="side" class="mr-5 col-2" style="background-color: lightslategray">
+
+    <form th:action="@{/library/main}">
+        <input type="search" id="search" th:name="search">
+        <button type="submit" class="btn btn-secondary">Search</button>
+    </form>
+
+    <br><br>
+    Category:
+    <br>
+        <tr th:each="bookitem: ${category}">
+            <th  th:text="${bookitem.getSubject()}"></th>
+            <br>
+        </tr>
+</div>
+</body>
+</html>

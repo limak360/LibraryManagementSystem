@@ -2,6 +2,7 @@ package com.kamiljacko.librarymanagementsystem.controller;
 
 
 import com.kamiljacko.librarymanagementsystem.dto.BookDto;
+import com.kamiljacko.librarymanagementsystem.entity.Author;
 import com.kamiljacko.librarymanagementsystem.entity.BookFormat;
 import com.kamiljacko.librarymanagementsystem.entity.BookStatus;
 import com.kamiljacko.librarymanagementsystem.service.BookService;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/books/")
@@ -30,6 +34,17 @@ public class BookController {
     @ModelAttribute("book")
     public BookDto bookDto() {
         return new BookDto();
+    }
+
+
+    @GetMapping("getBook")
+    public String getBook() {
+        return "mainview/get-book";
+    }
+
+    @GetMapping("getBooks")
+    public String getBooks() {
+        return "mainview/get-book";
     }
 
     @GetMapping("addBook")

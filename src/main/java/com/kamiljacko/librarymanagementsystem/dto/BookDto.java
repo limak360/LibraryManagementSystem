@@ -15,7 +15,7 @@ public class BookDto {
     private String publisher;
     private String language;
     private int numberOfPages;
-    private List<Author> authors;
+//    private List<Author> authors =  new ArrayList<>();
     private BookFormat bookFormat;
     private BookStatus bookStatus;
 
@@ -73,13 +73,13 @@ public class BookDto {
         this.numberOfPages = numberOfPages;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(Author author) {
-        authors.add(author);
-    }
+//    public List<Author> getAuthors() {
+//        return authors;
+//    }
+//
+//    public void addAuthors(Author author) {
+//        this.authors.add(author);
+//    }
 
     public BookFormat getBookFormat() {
         return bookFormat;
